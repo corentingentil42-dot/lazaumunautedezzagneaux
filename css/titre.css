@@ -1,0 +1,64 @@
+/* ============================================================
+   css/titre.css — Écran-titre : titre, boutons Commencer / Nouvelle partie, version, note sur la sauvegarde.
+   ============================================================ */
+
+  #titleScreen {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;   /* caché au départ : le JS l'affiche avec display:flex */
+    align-items: center; justify-content: center;
+    /* v20.24 : on devine le hub en pixel art derrière le titre (voir titleLoop) */
+    background: radial-gradient(ellipse at 50% 48%, rgba(12,20,30,0.84) 0%, rgba(12,20,30,0.7) 45%, rgba(12,20,30,0.34) 100%);
+    text-align: center; z-index: 20;
+  }
+  body.onTitle #hud, body.onTitle #hudHint, body.onTitle #miniMap, body.onTitle #todoPanel { display: none !important; }
+  #titleScreen h1 {
+    font-size: 42px; letter-spacing: 1px; color: #ffd76b;
+    text-shadow: 3px 3px 0 #7a4b00, 0 0 20px rgba(255,215,107,0.4);
+    margin-bottom: 12px; max-width: 700px;
+  }
+  #titleScreen p.subtitle {
+    color: #cfe8d9; font-size: 16px; margin-bottom: 40px; opacity: 0.85;
+  }
+  #titleScreen .blink {
+    color: #fff; font-size: 18px; animation: blink 1.2s infinite;
+    border: 2px solid #ffd76b; padding: 10px 24px; border-radius: 6px;
+    background: rgba(255,215,107,0.08);
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  #titleVersion { font-size: 11px; color: #9db3a8; margin-top: 18px; }
+  /* ======== v20.23 ======== */
+  .titleBtns { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; justify-content: center; }
+  #titleScreen button {
+    background: #ffd76b; color: #1b2735; border: none; padding: 12px 28px;
+    border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; font-family: inherit;
+  }
+  #titleScreen button:hover { background: #ffe28f; }
+  #titleScreen button.secondary { background: transparent; color: #ffd76b; border: 2px solid #ffd76b; }
+  #titleScreen button.secondary:hover { background: rgba(255,215,107,0.12); }
+#titleScreen #btnTitleNew { display: none; }   /* le JS l'affiche seulement s'il y a une sauvegarde */
+
+/* Le contenu du titre est centré dans la place qui reste au-dessus de la note ; la note, elle, reste tout en bas et ne peut jamais chevaucher les boutons. */
+#titleMain {
+  flex: 1 1 auto; min-height: 0; width: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+/* Note grise en bas de l'écran-titre : limites de la sauvegarde */
+#saveNote {
+  flex: none; width: min(94%, 640px); margin: 0 auto max(8px, 1.6vh);
+  padding: 5px 12px; border-radius: 8px;
+  font-size: clamp(8px, 1.9vh, 11.5px); line-height: 1.45;
+  color: #8a9c95; text-align: center;
+  background: rgba(12,20,30,0.55);   /* léger fond sombre : lisible même sur le décor clair */
+}
+#saveNote b { color: #a9bdb2; font-weight: normal; text-decoration: underline dotted; text-underline-offset: 2px; }
+
+/* Petits écrans en paysage (téléphone) : on resserre le titre pour que tout tienne avec la note */
+@media (max-height: 380px) {
+  #titleScreen h1 { font-size: 28px; margin-bottom: 6px; }
+  #titleScreen p.subtitle { font-size: 13px; margin-bottom: 14px; }
+  #titleScreen .blink { font-size: 15px; padding: 6px 18px; }
+  .titleBtns { margin-top: 12px; }
+  #titleScreen button { padding: 8px 22px; font-size: 15px; }
+  #titleVersion { margin-top: 8px; }
+}

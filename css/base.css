@@ -1,0 +1,23 @@
+/* ============================================================
+   css/base.css — Fondations : remise à zéro, page, conteneur du jeu, canevas (taille 4:3 plein écran).
+   ============================================================ */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%; background: #0d1117;
+    font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+    overflow: hidden; color: #fff;
+  }
+  #gameContainer {
+    position: relative; width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+  canvas {
+    background: #6ab150; image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    max-width: 100vw; max-height: 100vh;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+  }
+  /* Le jeu remplit la fenêtre en gardant son format 4:3 (avant il restait en 640×480, tout petit sur grand écran) */
+  #game { width: min(100vw, calc(100vh * 4 / 3)); height: auto; aspect-ratio: 4 / 3; max-width: none; max-height: none; }
+  #fxCanvas { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; background: transparent; box-shadow: none; pointer-events: none; z-index: 60; }

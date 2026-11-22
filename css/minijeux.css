@@ -1,0 +1,184 @@
+/* ============================================================
+   css/minijeux.css — Tout ce qui touche aux mini-jeux : conteneur, tuto, message de fin + étoiles, quiz, boutons, cartes, secousse.
+   ============================================================ */
+
+  #miniGameContainer {
+    position: absolute; inset: 0;
+    background: #0d1117; z-index: 35;
+    display: none; flex-direction: column;
+    padding: 20px;
+  }
+  #miniGameContainer.active { display: flex; }
+  #mgHeader {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; flex-shrink: 0;
+  }
+  #mgTitle { color: #ffd76b; font-size: 20px; }
+  #mgStats { display: flex; gap: 20px; font-size: 14px; color: #cfe8d9; }
+  #mgStats b { color: #ffd76b; }
+  #mgCloseBtn {
+    background: transparent; color: #ffd76b;
+    border: 2px solid #ffd76b; padding: 6px 16px;
+    border-radius: 6px; font-weight: bold; cursor: pointer;
+    font-family: inherit; font-size: 13px;
+  }
+  #mgCloseBtn:hover { background: rgba(255,215,107,0.1); }
+  #mgBody {
+    flex: 1; background: #14202b;
+    border: 2px solid #2a3b4a; border-radius: 10px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #mgCanvas {
+    display: none;   /* le JS l'affiche (display:block) pour les jeux « canvas » */
+    background: #1a2a1a; image-rendering: auto;
+    max-width: 100%; max-height: 100%;
+  }
+  #mgDOM {
+    width: 100%; height: 100%; padding: 24px;
+    display: none; flex-direction: column;   /* le JS l'affiche (display:flex) pour les jeux « DOM » */
+    align-items: center; justify-content: flex-start;
+    overflow-y: auto;
+  }
+  .meme-quiz { width: 100%; max-width: 560px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  @keyframes mgWrongShake {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-10px); }
+    30% { transform: translateX(9px); }
+    45% { transform: translateX(-7px); }
+    60% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+    90% { transform: translateX(2px); }
+  }
+  .meme-quiz.wrong-flash { animation: mgWrongShake 0.4s ease; }
+  .meme-quiz.wrong-flash .meme-img-wrap,
+  .meme-quiz.wrong-flash .meme-question {
+    animation: mgRedPulse 0.4s ease;
+  }
+  @keyframes mgRedPulse {
+    0% { box-shadow: 0 0 0 0 rgba(220,40,40,0); background-color: inherit; }
+    30% { box-shadow: 0 0 0 6px rgba(220,40,40,0.55); }
+    100% { box-shadow: 0 0 0 0 rgba(220,40,40,0); }
+  }
+  .meme-topbar { width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: #cfe8d9; }
+  .meme-hearts { font-size: 18px; letter-spacing: 2px; }
+  .meme-img-wrap { width: 100%; max-width: 420px; max-height: 46vh; border-radius: 10px; overflow: hidden; background: #10182c; display: flex; align-items: center; justify-content: center; }
+  .meme-img-wrap img { max-width: 100%; max-height: 46vh; width: auto; height: auto; object-fit: contain; display: none; }
+  .meme-question { font-size: 19px; font-weight: bold; color: #ffd76b; text-align: center; line-height: 1.4; }
+  .meme-options { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .meme-option {
+    width: 100%; text-align: left; padding: 12px 16px; border-radius: 8px;
+    background: rgba(255,255,255,0.06); border: 2px solid rgba(255,215,107,0.25);
+    color: #eef7ec; font-size: 15px; cursor: pointer; transition: background 0.15s;
+  }
+  .meme-option:hover:not(:disabled) { background: rgba(255,215,107,0.15); }
+  .meme-option:disabled { cursor: default; }
+  .meme-option.correct { background: rgba(76,175,80,0.35); border-color: #4caf50; }
+  .meme-option.wrong { background: rgba(200,60,60,0.35); border-color: #c83c3c; }
+  .meme-option.eliminated { background: rgba(120,120,120,0.18); border-color: rgba(150,150,150,0.3); color: rgba(238,247,236,0.45); cursor: not-allowed; }
+  #mgMessage {
+    position: absolute; inset: 0;
+    background: rgba(10,15,20,0.92);
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 5; text-align: center; padding: 30px;
+  }
+  #mgMessage.active { display: flex; }
+  #mgMessage h3 { color: #ffd76b; font-size: 32px; margin-bottom: 14px; }
+  #mgMessage p { color: #cfe8d9; margin-bottom: 24px; font-size: 16px; }
+  #mgMessage button {
+    background: #ffd76b; color: #1b2735; border: none;
+    padding: 12px 32px; border-radius: 8px;
+    font-size: 15px; font-weight: bold; cursor: pointer;
+    font-family: inherit;
+  }
+  #mgMessage button:hover { background: #ffe28f; }
+  .enigmaQuestion {
+    font-size: 20px; color: #f2f2f2; margin-bottom: 24px;
+    max-width: 600px; text-align: center; line-height: 1.5;
+  }
+  .enigmaOptions {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; max-width: 600px; width: 100%;
+  }
+  .enigmaOption {
+    background: #2a3b4a; border: 2px solid #3a4b5a;
+    color: #f2f2f2; padding: 16px; border-radius: 8px;
+    font-size: 15px; cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .enigmaOption:hover { border-color: #ffd76b; background: #3a4b5a; }
+  .enigmaOption.correct { background: #2e7d32; border-color: #4caf50; }
+  .enigmaOption.wrong { background: #7d2e2e; border-color: #c62828; }
+  .mgBtn {
+    background: #2a3b4a; border: 2px solid #3a4b5a;
+    color: #f2f2f2; padding: 12px 20px; border-radius: 8px;
+    font-size: 15px; cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .mgBtn:hover { border-color: #ffd76b; background: #3a4b5a; }
+  .mgBtn.selected { background: #ffd76b; color: #1b2735; border-color: #ffd76b; }
+  .mgGrid { display: grid; gap: 14px; width: 100%; max-width: 860px; }
+  .mgGrid.cols2 { grid-template-columns: 1fr 1fr; }
+  .mgGrid.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+  .mgTitle { color: #ffd76b; font-size: 20px; margin-bottom: 8px; text-align: center; }
+  .mgSub { color: #9db3a8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+  .mgCard {
+    background: #2a3b4a; border: 2px solid #3a4b5a;
+    border-radius: 8px; padding: 14px;
+    color: #f2f2f2; font-size: 14px;
+    cursor: pointer; transition: all 0.15s;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center;
+  }
+  .mgCard:hover { border-color: #ffd76b; transform: translateY(-2px); }
+  .mgCard .emoji { font-size: 32px; margin-bottom: 6px; }
+  .mgCard .itemImg {
+    width: 100%; height: 170px; object-fit: contain;
+    border-radius: 6px; margin-bottom: 8px;
+    background: #1b2735; display: none;
+  }
+  .mgCard.selected { background: #ffd76b; color: #1b2735; border-color: #ffd76b; }
+  #tutorialOverlay {
+    position: absolute; inset: 0;
+    background: rgba(10,15,20,0.85);
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 50; padding: 40px; text-align: center;
+  }
+  #tutorialOverlay.active { display: flex; }
+  #tutorialOverlay h3 { color: #ffd76b; font-size: 28px; margin-bottom: 16px; }
+  #tutorialOverlay p { color: #f2f2f2; font-size: 16px; margin-bottom: 10px; line-height: 1.5; max-width: 600px; }
+  #tutorialOverlay .keys {
+    display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; justify-content: center;
+  }
+  #tutorialOverlay .keyBadge {
+    background: #2a3b4a; border: 2px solid #ffd76b;
+    color: #ffd76b; padding: 8px 14px; border-radius: 6px;
+    font-weight: bold; font-size: 14px;
+  }
+  #tutorialOverlay button {
+    background: #ffd76b; color: #1b2735; border: none;
+    padding: 12px 32px; border-radius: 8px;
+    font-size: 15px; font-weight: bold; cursor: pointer;
+    font-family: inherit; margin-top: 20px;
+  }
+  #mgMessage .mgBtns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  #mgMessage #mgRetryBtn {
+    display: none; background: transparent; color: #ffd76b; border: 2px solid #ffd76b; padding: 10px 26px;
+  }
+  #mgMessage #mgRetryBtn.show { display: inline-block; }
+  #mgMessage #mgRetryBtn:hover { background: rgba(255,215,107,0.14); }
+  #mgStars { font-size: 36px; letter-spacing: 8px; color: #ffd76b; text-shadow: 0 0 14px rgba(255,215,107,.55); margin-bottom: 10px; }
+  #mgStars:empty { display: none; }
+  #mgStars .off { color: #3b4a58; text-shadow: none; }
+  #mgRecord { color: #9db3a8; font-size: 13px; margin: -12px 0 20px; }
+  #mgRecord:empty { display: none; }
+  #mgCanvas { touch-action: none; }
+  @keyframes mgBoxShake {
+    0%, 100% { transform: translate(0, 0); }
+    15% { transform: translate(-9px, 3px); } 30% { transform: translate(8px, -4px); }
+    45% { transform: translate(-6px, 2px); } 60% { transform: translate(5px, -2px); }
+    75% { transform: translate(-3px, 1px); } 90% { transform: translate(2px, 0); }
+  }
+  .fxShake { animation: mgBoxShake 0.42s ease; }
