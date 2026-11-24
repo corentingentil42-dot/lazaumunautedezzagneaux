@@ -6,8 +6,8 @@
     position: absolute; inset: 0;
     display: none; flex-direction: column;   /* caché au départ : le JS l'affiche avec display:flex */
     align-items: center; justify-content: center;
-    /* v20.24 : on devine le hub en pixel art derrière le titre (voir titleLoop) */
-    background: radial-gradient(ellipse at 50% 48%, rgba(12,20,30,0.84) 0%, rgba(12,20,30,0.7) 45%, rgba(12,20,30,0.34) 100%);
+    /* fond d'origine : nuit bleutée qui se fond dans l'herbe (le hub animé qu'on devinait derrière a été retiré en v20.27) */
+    background: linear-gradient(180deg, #1b2735 0%, #2c4a3e 60%, #3f6b4f 100%);
     text-align: center; z-index: 20;
   }
   body.onTitle #hud, body.onTitle #hudHint, body.onTitle #miniMap, body.onTitle #todoPanel { display: none !important; }

@@ -3,6 +3,17 @@
    (script classique : partage les variables globales des autres fichiers js/ ; l'ordre de chargement est dans index.html)
    ============================================================ */
 
+// Vrai si les pieds d'un joueur placé en (px, py) touchent la base d'un rocher.
+// Base du rocher = la zone au sol du sprite (voir drawRock) ; pieds du joueur = bande de 10 px en bas de son rectangle.
+function rockHit(px, py) {
+  const fx0 = px + 3, fx1 = px + player.w - 3, fy0 = py + player.h - 10, fy1 = py + player.h;
+  for (let i = 0; i < rocks.length; i++) {
+    const r = rocks[i];
+    if (r.x > fx1 + 30 || r.x < fx0 - 40 || r.y > fy1 + 20 || r.y < fy0 - 20) continue;   // trop loin : on ignore
+    if (fx1 > r.x - 5 && fx0 < r.x + 25 && fy1 > r.y - 3 && fy0 < r.y + 13) return true;
+  }
+  return false;
+}
 function update() {
   if (gameState !== 'playing') return;
   let dx = 0, dy = 0;
@@ -33,6 +44,12 @@ function update() {
   if (!inFire(player.x, player.y)) {
     if (inFire(nx, player.y)) nx = player.x;
     if (inFire(player.x, ny)) ny = player.y;
+  }
+  // Les rochers sont solides (les arbres, eux, restent traversables). On teste les PIEDS du joueur contre la base du rocher,
+  // axe par axe : on glisse le long du rocher au lieu de se coincer. Si on est déjà dedans (cas anormal), on peut en sortir.
+  if (!rockHit(player.x, player.y)) {
+    if (dx !== 0 && rockHit(nx, player.y)) nx = player.x;
+    if (dy !== 0 && rockHit(nx, ny)) ny = player.y;
   }
   nx = Math.max(20, Math.min(WORLD_W - player.w - 20, nx));
   ny = Math.max(60, Math.min(WORLD_H - player.h - 20, ny));
@@ -94,8 +111,8 @@ function update() {
     }
   }
 
-  camera.x = Math.max(0, Math.min(WORLD_W - VIEW_W, player.x + player.w/2 - VIEW_W/2));
-  camera.y = Math.max(0, Math.min(WORLD_H - VIEW_H, player.y + player.h/2 - VIEW_H/2));
+  camera.x = Math.max(0, Math.min(WORLD_W - SEE_W, player.x + player.w/2 - SEE_W/2));
+  camera.y = Math.max(0, Math.min(WORLD_H - SEE_H, player.y + player.h/2 - SEE_H/2));
 
   // Zone affichée dans le HUD : le hub si on est près du centre, sinon la
   // maison la plus proche (le libellé ne change que si nécessaire)

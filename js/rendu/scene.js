@@ -9,8 +9,10 @@
 const drawList = [];
 function draw() {
   ctx.clearRect(0, 0, VIEW_W, VIEW_H);
-  const camX = Math.round(camera.x), camY = Math.round(camera.y);
+  // Caméra zoomée (HUB_ZOOM) ; on cale la position sur un pixel d'écran entier pour éviter le « tremblement » du décor.
+  const camX = Math.round(camera.x * HUB_ZOOM) / HUB_ZOOM, camY = Math.round(camera.y * HUB_ZOOM) / HUB_ZOOM;
   ctx.save();
+  ctx.scale(HUB_ZOOM, HUB_ZOOM);
   ctx.translate(-camX, -camY);
   drawGround(camX, camY);
   const L = drawList; L.length = 0;

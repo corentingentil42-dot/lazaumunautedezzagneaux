@@ -123,8 +123,8 @@ function getChunk(cx, cy) {
 }
 const CHX = Math.ceil(WORLD_W / CH), CHY = Math.ceil(WORLD_H / CH);
 function drawGround(camX, camY) {
-  const x0 = Math.max(0, Math.floor(camX / CH)), x1 = Math.min(CHX - 1, Math.floor((camX + VIEW_W) / CH));
-  const y0 = Math.max(0, Math.floor(camY / CH)), y1 = Math.min(CHY - 1, Math.floor((camY + VIEW_H) / CH));
+  const x0 = Math.max(0, Math.floor(camX / CH)), x1 = Math.min(CHX - 1, Math.floor((camX + SEE_W) / CH));
+  const y0 = Math.max(0, Math.floor(camY / CH)), y1 = Math.min(CHY - 1, Math.floor((camY + SEE_H) / CH));
   for (let cy = y0; cy <= y1; cy++) for (let cx = x0; cx <= x1; cx++) ctx.drawImage(getChunk(cx, cy), cx * CH, cy * CH);
   // Pré-calcul des morceaux voisins, un seul par image, pour ne jamais saccader en marchant.
   for (let cy = Math.max(0, y0 - 1); cy <= Math.min(CHY - 1, y1 + 1); cy++) {

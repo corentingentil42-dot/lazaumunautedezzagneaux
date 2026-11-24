@@ -70,6 +70,10 @@ const Snd = (() => {
     pop:    t => tone(500, t, 0.08, { type: 'sine', vol: 0.2, to: 900 }),
     win:    t => [523, 659, 784, 1047].forEach((f, i) => tone(f, t + i * 0.09, 0.2, { vol: 0.13 })),
     fail:   t => { tone(330, t, 0.18, { type: 'sawtooth', vol: 0.15, to: 220 }); tone(247, t + 0.17, 0.18, { type: 'sawtooth', vol: 0.15, to: 165 }); tone(165, t + 0.34, 0.42, { type: 'sawtooth', vol: 0.15, to: 105 }); },
+    crash:  t => { noise(t, 0.22, 0.45, 600); tone(190, t, 0.2, { type: 'sawtooth', vol: 0.2, to: 70 }); },
+    boost:  t => { tone(300, t, 0.22, { type: 'square', vol: 0.12, to: 900 }); tone(450, t + 0.05, 0.2, { type: 'triangle', vol: 0.14, to: 1200 }); },
+    beep:   t => tone(520, t, 0.14, { type: 'square', vol: 0.14 }),
+    go:     t => { tone(780, t, 0.35, { type: 'square', vol: 0.15 }); tone(1170, t, 0.35, { type: 'triangle', vol: 0.13 }); },
     unlock: t => [523, 659, 784, 659, 784, 1047, 1319].forEach((f, i) => tone(f, t + i * 0.1, i === 6 ? 0.55 : 0.14, { vol: 0.13 }))
   };
   function probe(name) {

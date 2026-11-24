@@ -14,11 +14,14 @@ Le plan complet « où modifier quoi » est dans **README.md** (tableaux génér
 - Ne pas toucher à `tableau-des-100-suspects.xlsx` sans l'accord de Coco (fichier public dans le dépôt, il le modifie lui-même).
 
 ## Architecture en bref
+- Caméra du hub zoomée : `HUB_ZOOM` (2.4) dans `js/moteur/monde.js`. Le canevas fait 640×480 mais la caméra n'en voit que `SEE_W × SEE_H` (640/2.4 × 480/2.4) du monde : utiliser `SEE_W/SEE_H` (pas `VIEW_W/VIEW_H`) pour tout ce qui touche à la vue du monde. Rochers solides (`rockHit`), arbres traversables.
 - Machine d'état `gameState` : `'loading' | 'title' | 'playing' | 'dialogue' | 'miniGame' | 'teamMenu' | 'bigMap' | 'caseJournal' | 'zoneOverlay' | 'endScreen'`.
 - Mini-jeux : objets `MINIGAMES[type]` (un fichier par jeu dans `js/minijeux/`), terminés par `mgSuccess()` / `mgFail()` (dans `noyau.js`). Les étoiles (★ de performance + ⭐ bonus) sont décidées par `STAR_RULES` dans `etoiles.js`.
+- Course de Coco (`js/minijeux/coco-course.js`, v20.27) : vraie course contre 5 concurrents (IA dans `courseAI`, pas fixe de 1/120 s, `courseStep` testable sans navigateur : `s = {}; courseInit(s, zone); courseStep(s, COURSE.STEP)`). Étoiles = place (1er ★★★, 2ᵉ ★★, 3ᵉ ★) ; 4ᵉ ou plus, ou 3 coureurs déjà arrivés = défaite. Difficulté : `COURSE_RIVALS[].skill` (vitesse), `aggr` (coupe la route), `stumble` (chutes de rivaux). Joueur parfait ≈ 32,6 s, meilleur rival ≈ 33,5–34,7 s, une chute coûte ≈ 3 s. Sur téléphone, pédalage automatique (le joystick ne donne qu'une direction à la fois).
+- Commandes tactiles : `#touchUI` est remonté à `z-index: 60` pendant les mini-jeux (`body.t-arrows/t-jump/t-asdf`) car l'écran de mini-jeu est à 35 ; sans ça le joystick était caché.
 - Sauvegarde : `localStorage['zaumunaute_save_v2']`, charge utile `v: 3` (`js/moteur/sauvegarde.js`). Ne jamais casser la lecture d'anciennes sauvegardes (migrations).
 - Persos : `js/donnees/personnages.js` ; zones/maisons/quêtes : `js/donnees/zones.js` ; enquête (témoignages, indices, suspects `CASE_*`) : `js/enquete/donnees.js`.
-- Écran-titre vivant (`titleLoop`, hub dessiné derrière) et note grise sur les limites de la sauvegarde (`#saveNote`, bas de l'écran-titre) : `index.html` + `css/titre.css`. Si la sauvegarde change (export de code, cloud…), mettre la note à jour.
+- Écran-titre : fond en dégradé nuit → herbe (`css/titre.css`, plus de hub animé derrière) et note grise sur les limites de la sauvegarde (`#saveNote`, bas de l'écran-titre) : `index.html` + `css/titre.css`. Si la sauvegarde change (export de code, cloud…), mettre la note à jour.
 
 ## Tester (Playwright + Chromium sont préinstallés dans l'environnement cloud)
 ```
@@ -30,4 +33,4 @@ node --check js/**/*.js              # syntaxe (ou boucle sur chaque fichier)
 - Pour un mini-jeu : `launchMiniGame(zones.find(z => z.id === 'camille'))` depuis `page.evaluate`, puis forcer la fin avec `mgSuccess()`/`mgFail()` ou jouer avec un bot.
 
 ## Idées en attente (ne pas les faire sans demande)
-Bouton « copier / coller mon code de sauvegarde » ; brancher les 43 suspects (xlsx) dans le journal « Qui est-ce ? » (les zones ne sont que des chapitres, pas de sprite par suspect) ; refaire les mini-jeux de Coco, Perline, Noah (avis), dialogues de Saint-Pierre ; scènes d'excuses ; Grand Feu / scène d'accusation ; compression des images (WebP).
+Bouton « copier / coller mon code de sauvegarde » ; brancher les 43 suspects (xlsx) dans le journal « Qui est-ce ? » (les zones ne sont que des chapitres, pas de sprite par suspect) ; refaire les mini-jeux de Perline et Noah (avis), dialogues de Saint-Pierre ; scènes d'excuses ; Grand Feu / scène d'accusation ; compression des images (WebP).

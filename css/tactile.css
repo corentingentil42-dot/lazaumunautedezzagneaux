@@ -6,6 +6,8 @@
   #touchUI { display: none; position: absolute; inset: 0; z-index: 30; pointer-events: none; }
   body.touch #touchUI { display: block; }
   body.touch #hudHint { display: none; }
+  /* Pendant un mini-jeu, l'écran du mini-jeu (z-index 35) recouvrait le joystick et les boutons : on les remonte au-dessus. */
+  body.t-arrows #touchUI, body.t-jump #touchUI, body.t-asdf #touchUI { z-index: 60; }
   #touchPad {
     position: absolute; left: 22px; bottom: 22px; width: 132px; height: 132px; border-radius: 50%;
     background: rgba(255,255,255,0.10); border: 2px solid rgba(255,215,107,0.45);

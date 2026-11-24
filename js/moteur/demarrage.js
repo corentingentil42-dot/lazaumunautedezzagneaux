@@ -1,10 +1,10 @@
 /* ============================================================
-   js/moteur/demarrage.js — Démarrage : version du jeu, diagnostic des images (touche D), init() et écran-titre vivant. Chargé EN DERNIER.
+   js/moteur/demarrage.js — Démarrage : version du jeu, diagnostic des images (touche D), init() et écran-titre (simple dégradé, voir css/titre.css). Chargé EN DERNIER.
    (script classique : partage les variables globales des autres fichiers js/ ; l'ordre de chargement est dans index.html)
    ============================================================ */
 
 /* ============ INITIALISATION ============ */
-const GAME_VERSION = 'v20.26';
+const GAME_VERSION = 'v20.27';
 // Diagnostic (touche D) : teste en direct les fichiers de Coco pour voir
 // ce qui se charge et ce qui manque, et affiche d'où le jeu est ouvert.
 function runDiagnostics() {
@@ -85,14 +85,5 @@ function checkAssetsPresence() {
   document.getElementById('titlePrompt').textContent = hs ? 'Entrée : continuer · N : nouvelle partie' : 'Appuie sur Entrée pour commencer';
   document.getElementById('btnTitleStart').addEventListener('click', () => startGame(false));
   document.getElementById('btnTitleNew').addEventListener('click', newGameFromTitle);
-  // Écran-titre vivant : la caméra dérive tout doucement autour de la place, tant qu'on n'a pas lancé la partie.
-  const titleLoop = (ts) => {
-    if (gameState !== 'title') return;
-    const t = (ts || 0) / 1000;
-    camera.x = HUB_X - VIEW_W / 2 + Math.sin(t * 0.25) * 90;
-    camera.y = HUB_Y - VIEW_H / 2 + 40 + Math.cos(t * 0.19) * 50;
-    draw();
-    requestAnimationFrame(titleLoop);
-  };
-  requestAnimationFrame(titleLoop);
+  // Écran-titre : simple dégradé (css/titre.css), rien à dessiner tant qu'on n'a pas lancé la partie.
 })();

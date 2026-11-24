@@ -17,7 +17,10 @@ const TREE_PAL = [
   { d: '#2a6638', m: '#3b8643', l: '#56a756', h: '#86cc72', k: '#1f5030' }
 ];
 function buildRoundTree(v) {
-  const W = 34, H = 44, { c, g } = artCanvas(W, H), pal = TREE_PAL[v % 3], lay = TREE_LAYOUTS[v % 3];
+  // Les boules de feuillage + leur contour dépassent de la zone 34×44 d'origine (d'où l'arbre « rogné » sur les bords) :
+  // on agrandit le canevas de 3 px sur les côtés et 4 px en haut, et on décale le dessin d'autant.
+  const PADX = 3, PADY = 4, W = 34 + PADX * 2, H = 44 + PADY, { c, g } = artCanvas(W, H), pal = TREE_PAL[v % 3], lay = TREE_LAYOUTS[v % 3];
+  g.translate(PADX, PADY);
   artShadow(g, 17, 40, 14, 3);
   // tronc
   aR(g, 13, 27, 9, 14, OUT); aR(g, 14, 27, 7, 13, '#7a4b26'); aR(g, 14, 27, 2, 13, '#9c6434'); aR(g, 18, 27, 3, 13, '#5c3519');
@@ -39,7 +42,8 @@ function buildRoundTree(v) {
   return artUp(c);
 }
 function buildPineTree(v) {
-  const W = 30, H = 50, { c, g } = artCanvas(W, H), cx = 15;
+  const W = 32, H = 51, { c, g } = artCanvas(W, H), cx = 15;   // +1 ligne en haut (contour de la pointe) et +1 colonne de chaque côté : le dernier étage touchait le bord
+  g.translate(1, 1);
   const pal = v ? { l: '#4aa65a', m: '#35874a', d: '#276a3a' } : { l: '#3f9a52', m: '#2f7d44', d: '#245f36' };
   artShadow(g, 15, 46, 12, 3);
   aR(g, 13, 38, 5, 9, OUT); aR(g, 14, 38, 3, 8, '#7a4b26'); aR(g, 14, 38, 1, 8, '#9c6434');
@@ -50,6 +54,7 @@ function buildPineTree(v) {
       aR(g, cx - hw - 1, y, hw * 2 + 3, 1, OUT);
     }
     aR(g, cx - t.hw - 1, t.bot + 1, t.hw * 2 + 3, 1, OUT);
+    if (t.top === 0) aR(g, cx - 1, -1, 3, 1, OUT);   // contour au-dessus de la pointe
     for (let y = t.top; y <= t.bot; y++) {
       const k = (y - t.top) / (t.bot - t.top), hw = Math.round(1 + k * (t.hw - 1));
       const l = cx - hw, w = hw * 2 + 1;
@@ -92,6 +97,7 @@ const treeSpr = [buildRoundTree(0), buildRoundTree(1), buildRoundTree(2), buildP
 const bushSpr = [buildBush(0), buildBush(1)], rockSpr = [buildRock(0), buildRock(1)];
 function treeSprite(t) { const k = Math.floor(hash2(t.x, t.y, 21) * 3); return t.variant === 'pine' ? treeSpr[3 + (k % 2)] : treeSpr[k % 3]; }
 // Les anciennes coordonnées (x, y) étaient le coin haut-gauche d'une zone de 32 px : on ancre sur le pied du tronc.
-function drawTree(t) { const s = treeSprite(t); ctx.drawImage(s, Math.round(t.x + 16 - s.width / 2), Math.round(t.y + 46 - (t.variant === 'pine' ? 94 : 80))); }
+// (le bas du sprite reste calé à t.y + 54 pour l'arbre rond, t.y + 52 pour le sapin, quelle que soit la marge ajoutée autour)
+function drawTree(t) { const s = treeSprite(t); ctx.drawImage(s, Math.round(t.x + 16 - s.width / 2), Math.round(t.y + (t.variant === 'pine' ? 52 : 54) - s.height)); }
 function drawBush(b) { const s = bushSpr[Math.floor(hash2(b.x, b.y, 22) * 5) === 0 ? 1 : 0]; ctx.drawImage(s, Math.round(b.x + 14 - s.width / 2), Math.round(b.y + 20 - 34)); }
 function drawRock(r) { const s = rockSpr[Math.floor(hash2(r.x, r.y, 23) * 2)]; ctx.drawImage(s, Math.round(r.x + 10 - s.width / 2), Math.round(r.y + 13 - 24)); }

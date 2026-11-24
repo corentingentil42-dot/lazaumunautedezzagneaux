@@ -143,9 +143,12 @@
     position: absolute; inset: 0;
     background: rgba(10,15,20,0.85);
     display: none; flex-direction: column;
-    align-items: center; justify-content: center;
+    align-items: center; justify-content: flex-start;
     z-index: 50; padding: 40px; text-align: center;
+    overflow-y: auto;   /* si le texte est plus haut que l'écran (téléphone en paysage), on peut le faire défiler */
   }
+  /* ces deux « ressorts » centrent le contenu quand il y a de la place, et disparaissent quand il n'y en a pas (rien n'est coupé en haut) */
+  #tutorialOverlay::before, #tutorialOverlay::after { content: ''; flex: 1 0 0; }
   #tutorialOverlay.active { display: flex; }
   #tutorialOverlay h3 { color: #ffd76b; font-size: 28px; margin-bottom: 16px; }
   #tutorialOverlay p { color: #f2f2f2; font-size: 16px; margin-bottom: 10px; line-height: 1.5; max-width: 600px; }
@@ -162,6 +165,15 @@
     padding: 12px 32px; border-radius: 8px;
     font-size: 15px; font-weight: bold; cursor: pointer;
     font-family: inherit; margin-top: 20px;
+  }
+  /* Petits écrans en hauteur (téléphone en paysage) : tutoriel plus compact pour que le bouton « J'ai compris » reste visible */
+  @media (max-height: 520px) {
+    #tutorialOverlay { padding: 12px 24px; }
+    #tutorialOverlay h3 { font-size: 20px; margin-bottom: 6px; }
+    #tutorialOverlay p { font-size: 13px; margin-bottom: 4px; line-height: 1.35; }
+    #tutorialOverlay .keys { margin: 8px 0 4px; gap: 8px; }
+    #tutorialOverlay .keyBadge { padding: 4px 10px; font-size: 12px; }
+    #tutorialOverlay button { padding: 8px 26px; margin-top: 6px; font-size: 14px; flex: none; }
   }
   #mgMessage .mgBtns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
   #mgMessage #mgRetryBtn {

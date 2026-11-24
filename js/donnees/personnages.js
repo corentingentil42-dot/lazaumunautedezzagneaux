@@ -12,7 +12,7 @@
 const PERSONNAGES = [
   { id:'coco', nom:'Coco', surnom:'Coco', zone:'Le Circuit',
     theme:'course / vélo', emoji:'🚴', couleur:'#2f5aa8',
-    quete:{ nom:'La Course de Coco', desc:'Roule jusqu\'à l\'arrivée avant la fin du chrono — reste sur la route et vise les boosts !', type:'course' } },
+    quete:{ nom:'La Course de Coco', desc:'Course à vélo contre 5 concurrents : évite les chutes, profite des sillages et des boosts, et termine sur le podium !', type:'course' } },
   { id:'lawisse', nom:'Lawisse', surnom:'Lawisse', zone:'La Pyramide d\'Or',
     theme:'Égypte + Israël + argent', emoji:'💰', couleur:'#3a7fb0',
     quete:{ nom:'Le Trésor Maudit', desc:'Ramasse 50 pièces d\'or en 80s en évitant bandits et pièges !', type:'collecte' } },

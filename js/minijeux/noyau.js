@@ -62,7 +62,7 @@ function launchMiniGame(zone, opts) {
   mgState = { zone, won: false, over: false, startTime: performance.now() };
 
   const tutos = {
-    course: { title: "🚴 La Course de Coco", lines: ["← → pour diriger le vélo, ↑ pour pédaler plus fort, ↓ pour freiner.", "Reste sur la route : l'herbe te ralentit énormément !", "Chevauche les plaques ⚡ à chevrons pour prendre un boost.", "Passe les 4 rangs et atteins l'arrivée avant la fin du chrono !"], keys: ["← → Diriger", "↑ Accélérer", "↓ Freiner"] },
+    course: { title: "🚴 La Course de Coco", lines: ["← → pour diriger, ↑ pour pédaler à fond (sur téléphone, tu pédales tout seul), ↓ pour freiner.", "Tu cours contre 5 concurrents ! Foncer dans un coureur ou un rocher te fait TOMBER : tu repars au ralenti.", "Colle-toi derrière un coureur pour profiter de son sillage 💨 (+10 %). Les plaques ⚡ donnent un boost ; l'herbe et la boue te freinent.", "Il faut finir sur le podium : 1er ★★★ · 2ᵉ ★★ · 3ᵉ ★. Plus bas, on recommence !"], keys: ["← → Diriger", "↑ Pédaler", "↓ Freiner"] },
     moto: { title: "🏍️ La Course de Moto", lines: ["Tu roules sur une autoroute à 3 voies.", "Esquive les VOITURES et les CÔNES en changeant de voie.", "Survis 25 secondes, ça accélère !"], keys: ["← → Changer de voie"] },
     endurance: { title: "🏃‍♀️ Le Dépassement de Soi", lines: ["Tu cours automatiquement vers la droite, à vive allure.", "Appuie sur ESPACE pour sauter les obstacles — c'est un jeu de réflexes !", "Le HUD affiche ton rythme (3 à 25 km/h) qui grimpe doucement.", "Atteins 300m !"], keys: ["ESPACE ou ↑ Sauter"] },
     volley: { title: "🏐 Tournoi de Volley", lines: ["Bouge M.M. avec ← →.", "Renvoie la balle pour marquer — ça accélère au fil du temps !", "20 renvois pour gagner !"], keys: ["← → Bouger M.M."] },

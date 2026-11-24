@@ -70,7 +70,9 @@ const bonusRule = (ou) => ({
   detail: s => 'Étoiles bonus : ' + (s.bonus || 0) + ' / ' + STAR_BONUS_TOTAL
 });
 const STAR_RULES = {
-  course:    { goals: ['Arriver avec 8 s d\'avance', 'Arriver avec 16 s d\'avance'], calc: s => starsByMin(s.timeLimit, 8, 16), detail: s => 'Il te restait ' + fmtS(s.timeLimit) },
+  // Course de Coco (v20.27) : les étoiles = la place à l'arrivée. 1er ★★★ · 2ᵉ ★★ · 3ᵉ ★ · au-delà du podium : défaite (voir coco-course.js)
+  course:    { goals: ['Finir 2ᵉ ou mieux', 'Finir 1er'], calc: s => s.place === 1 ? 3 : (s.place === 2 ? 2 : 1),
+               detail: s => 'Tu finis ' + courseOrdinal(s.place) + ' sur ' + s.racers.length + (s.place > 1 && s.winnerName ? ' · 1er : ' + s.winnerName : '') + (s.falls ? ' · ' + s.falls + (s.falls > 1 ? ' chutes' : ' chute') : ' · aucune chute') },
   collecte:  { goals: ['Finir avec 15 s d\'avance', 'Finir avec 25 s d\'avance'], calc: s => starsByMin(s.timeLeft, 15, 25), detail: s => 'Il te restait ' + fmtS(s.timeLeft) },
   blagues:   { goals: ['Finir avec 10 s d\'avance', 'Finir avec 20 s d\'avance'], calc: s => starsByMin(s.timeLeft, 10, 20), detail: s => 'Il te restait ' + fmtS(s.timeLeft) },
   coiffure:  { goals: ['Finir en 30 s ou moins', 'Finir en 20 s ou moins'], calc: s => starsByMax(s.playTime, 20, 30), detail: s => 'Temps de coupe : ' + fmtS(s.playTime) },

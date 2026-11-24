@@ -19,6 +19,9 @@ Jeu en pixel art (HTML5 canvas) sur la bande : on se balade sur la place, on rec
 | Les **suspects**, témoignages, indices de l'enquête | `js/enquete/donnees.js` |
 | L'affichage du journal d'enquête (touche J) | `js/enquete/journal.js` |
 | Les **sons** (tous générés par le code) | `js/moteur/son.js` |
+| Le **zoom** du hub (×2,4) et la **vitesse** du joueur | `js/moteur/monde.js` (`HUB_ZOOM`, `player.speed`) |
+| Les **rochers solides** / collisions du hub | `js/moteur/mise-a-jour.js` (`rockHit`) |
+| La **course de Coco** : concurrents, difficulté, circuit | `js/minijeux/coco-course.js` (`COURSE`, `COURSE_RIVALS`) |
 | La **sauvegarde** | `js/moteur/sauvegarde.js` |
 | Le **look du décor** (sol, arbres, maisons, place, persos) | `js/rendu/*.js` |
 | Les **couleurs / tailles / mise en page** d'un écran | `css/*.css` (voir tableau CSS) |
@@ -89,7 +92,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 | `js/moteur/interaction.js` | Touche E : parler à un perso, entrer dans une zone, allumer le Grand Feu (vraie fin). |
 | `js/moteur/mise-a-jour.js` | update() : déplacement du joueur, collisions, PNJ, détection de ce qui est à portée, HUD. |
 | `js/moteur/boucle.js` | Boucle principale du jeu (requestAnimationFrame). |
-| `js/moteur/demarrage.js` | Démarrage : version du jeu, diagnostic des images (touche D), init() et écran-titre vivant. Chargé EN DERNIER. |
+| `js/moteur/demarrage.js` | Démarrage : version du jeu, diagnostic des images (touche D), init() et écran-titre (simple dégradé, voir css/titre.css). Chargé EN DERNIER. |
 
 #### Interface
 | Fichier | Rôle |
@@ -127,7 +130,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 | `js/minijeux/noyau.js` | Cœur des mini-jeux : lancement, tutoriel, victoire / défaite (mgSuccess, mgFail), bouton Rejouer, écran de fin. |
 | `js/minijeux/etoiles.js` | ÉTOILES : règles de chaque mini-jeu (seuils 2★ / 3★), étoiles bonus ⭐. C'est ICI qu'on règle la difficulté des étoiles. |
 | `js/minijeux/outils.js` | Petits outils partagés par les mini-jeux : mélange (mgShuffle), position du pointeur, retour à la ligne, rectangles arrondis. |
-| `js/minijeux/coco-course.js` | Mini-jeu de Coco : la course à vélo (type 'course'). |
+| `js/minijeux/coco-course.js` | Mini-jeu de Coco : la course à vélo contre 5 concurrents, en pixel art (type 'course'). Podium obligatoire : 1er ★★★, 2ᵉ ★★, 3ᵉ ★. |
 | `js/minijeux/camille-esquive.js` | Mini-jeu de Camille : esquive des citrons (type 'esquive', étoiles bonus). |
 | `js/minijeux/emma-enigmes.js` | Mini-jeu d'Emma : énigmes du sarcasme (type 'enigmes', 3 vies). |
 | `js/minijeux/lilie-defile.js` | Mini-jeu de Lilie : défilé éclair (type 'mode'). |
