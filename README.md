@@ -66,7 +66,7 @@ Chargés dans cet ordre (le dernier gagne en cas d'égalité, d'où `tactile.css
 | `css/hud.css` | Interface en jeu : bulle « Appuie sur E », bandeau du haut, aide touches, mini-carte, liste « À faire », bouton son. |
 | `css/panneaux.css` | Panneaux plein écran : grande carte, menu équipe (cartes persos), fiche de zone, dossier d'enquête. |
 | `css/minijeux.css` | Tout ce qui touche aux mini-jeux : conteneur, tuto, message de fin + étoiles, quiz, boutons, cartes, secousse. |
-| `css/petit-ecran.css` | Écrans peu hauts (≤ 460 px : téléphone en paysage) : panneaux, mini-jeux et menus compacts ; rien ne dépasse de l'écran. |
+| `css/petit-ecran.css` | Écrans peu hauts (≤ 460 px : téléphone en paysage) : panneaux, mini-jeux (`.mg-compact` plein écran, `.mg-wide` titre/Quitter dans les marges) et menus compacts ; rien ne dépasse de l'écran. |
 | `css/tactile.css` | Écran tactile (téléphone) : joystick, boutons, touches de rythme, « tourne ton téléphone ». Chargé en dernier (il surcharge le reste). |
 
 ### JavaScript (`js/`)
@@ -134,7 +134,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 #### Mini-jeux
 | Fichier | Rôle |
 |---|---|
-| `js/minijeux/noyau.js` | Cœur des mini-jeux : lancement, tutoriel, victoire / défaite (mgSuccess, mgFail), bouton Rejouer, écran de fin. |
+| `js/minijeux/noyau.js` | Cœur des mini-jeux : lancement, tutoriel, victoire / défaite (mgSuccess, mgFail), bouton Rejouer, écran de fin, `mgFitCanvas()` (taille du canevas : le plus grand possible, plein écran sur téléphone). |
 | `js/minijeux/etoiles.js` | ÉTOILES : règles de chaque mini-jeu (seuils 2★ / 3★), étoiles bonus ⭐. C'est ICI qu'on règle la difficulté des étoiles. |
 | `js/minijeux/outils.js` | Petits outils partagés par les mini-jeux : mélange (mgShuffle), position du pointeur, retour à la ligne, rectangles arrondis. |
 | `js/minijeux/coco-course.js` | Mini-jeu de Coco : la course à vélo contre 5 concurrents, en pixel art (type 'course'). Podium obligatoire : 1er ★★★, 2ᵉ ★★, 3ᵉ ★. |

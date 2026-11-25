@@ -38,6 +38,33 @@ document.getElementById('tutoBtn').addEventListener('click', () => {
   if (tutoCallback) { tutoCallback(); tutoCallback = null; }
 });
 
+/* ---------- TAILLE DU CANEVAS DES MINI-JEUX « CANVAS » ----------
+   Le jeu occupe le plus grand rectangle (même format que le canevas, 8:5) qui rentre dans la zone de jeu. On le calcule ici
+   plutôt que par « max-height: 100% » en CSS, qui se comporte différemment d'un navigateur à l'autre.
+   Écran peu haut (téléphone en paysage, ≤ 460 px) : mode « presque plein écran » (classe mg-compact) = plus de cadre ni de
+   marges autour du jeu. Et si l'écran est assez large pour qu'il reste de la place de chaque côté du jeu (ex. 832×384), le titre et
+   le bouton « Quitter » se rangent dans ces marges (classe mg-wide) au lieu de prendre une ligne en haut du jeu. */
+const MG_MARGE_MIN = 104;   // px : largeur minimale d'une marge pour y ranger le titre / « Quitter »
+function mgFitCanvas() {
+  const cont = document.getElementById('miniGameContainer'), box = document.getElementById('mgBody'), c = document.getElementById('mgCanvas');
+  if (!cont || !box || !c || !cont.classList.contains('active') || !cont.classList.contains('mgIsCanvas')) return;
+  const ratio = c.width / c.height;
+  const court = window.innerHeight <= 460;
+  cont.classList.toggle('mg-compact', court);
+  let marge = 0;
+  if (court) {
+    const l1 = Math.min(cont.clientWidth, cont.clientHeight * ratio);        // taille du jeu s'il prend toute la hauteur
+    marge = Math.floor((cont.clientWidth - l1) / 2);
+  }
+  const wide = court && marge >= MG_MARGE_MIN;
+  cont.classList.toggle('mg-wide', wide);
+  cont.style.setProperty('--mg-marge', Math.max(0, marge - 12) + 'px');
+  const w = Math.floor(Math.min(box.clientWidth, box.clientHeight * ratio, c.width));   // jamais agrandi au-delà de sa taille interne (comme avant, sur ordinateur)
+  c.style.width = w + 'px'; c.style.height = Math.floor(w / ratio) + 'px';
+}
+if (window.ResizeObserver) new ResizeObserver(() => mgFitCanvas()).observe(document.getElementById('miniGameContainer'));
+window.addEventListener('resize', mgFitCanvas);
+
 function launchMiniGame(zone, opts) {
   gameState = 'miniGame';
   mgTries = (opts && opts.retry) ? mgTries + 1 : 0;
@@ -47,6 +74,9 @@ function launchMiniGame(zone, opts) {
   document.getElementById('mgStats').innerHTML = `<span>${zone.nom} • <b>${zone.zone}</b></span>`;
   document.getElementById('mgMessage').classList.remove('active');
   const mg = MINIGAMES[zone.quete.type];
+  const mgCont = document.getElementById('miniGameContainer');
+  mgCont.classList.toggle('mgIsCanvas', !!mg && mg.type === 'canvas');
+  if (mg && mg.type === 'canvas') mgFitCanvas(); else mgCont.classList.remove('mg-compact', 'mg-wide');
   if (!mg) {
     document.getElementById('mgCanvas').style.display = 'none';
     const dom = document.getElementById('mgDOM');
@@ -97,6 +127,7 @@ function actuallyLaunch(mg, zone, mgCanvas, mgDOM, mgStateRef) {
     mgCanvas.style.display = 'block';
     activeMiniGame = mg;
     mg.init(mgCanvas, zone, mgStateRef);
+    mgFitCanvas();
     loopMiniGameCanvas();
   } else {
     mgDOM.style.display = 'flex';

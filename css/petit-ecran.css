@@ -92,3 +92,19 @@
   #mgDOM [style*="margin-bottom:14px"] { margin-bottom: 6px !important; }
   #mgDOM [style*="margin-top:14px"] { margin-top: 6px !important; }
 }
+
+/* ---- Mini-jeux « canvas » en presque plein écran (classes posées par mgFitCanvas() dans js/minijeux/noyau.js) ---- */
+#miniGameContainer.mg-compact { padding: 0; }
+#miniGameContainer.mg-compact #mgBody { border: 0; border-radius: 0; background: #0d1117; }
+/* Écran pas assez large pour des marges : le titre + « Quitter » restent sur une fine ligne en haut */
+#miniGameContainer.mg-compact #mgHeader { margin: 0; padding: 3px 10px; }
+/* Écran assez large : titre et « Quitter » passent DANS les marges à gauche / à droite du jeu, qui prend toute la hauteur */
+/* L'en-tête ne crée PAS de contexte d'empilement (pas de z-index) : « Quitter » (z 60) reste ainsi au-dessus du tuto (50) et du message de fin (5), le titre (z 4) au-dessus du canevas mais sous eux. */
+#miniGameContainer.mg-wide #mgHeader {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 6px 10px; align-items: flex-start; pointer-events: none;
+}
+#miniGameContainer.mg-wide #mgHeader > div:first-child { position: relative; z-index: 4; max-width: var(--mg-marge, 100px); }
+#miniGameContainer.mg-wide #mgTitle { font-size: 13px; line-height: 1.25; text-shadow: 0 1px 3px #000; }
+#miniGameContainer.mg-wide #mgStats { display: none; }
+#miniGameContainer.mg-wide #mgCloseBtn { position: relative; z-index: 60; pointer-events: auto; background: rgba(13,17,23,0.75); }
