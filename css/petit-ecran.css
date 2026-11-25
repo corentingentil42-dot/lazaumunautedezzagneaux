@@ -1,0 +1,94 @@
+/* ============================================================
+   css/petit-ecran.css — Écrans peu hauts (≤ 460 px : téléphone en paysage, petite fenêtre) : panneaux, mini-jeux et menus compacts.
+   Règle d'or : rien ne dépasse de l'écran, ou alors ça défile ; les boutons « Fermer / Continuer » restent atteignables.
+   Chargé après les autres feuilles de style (sauf tactile.css).
+   ============================================================ */
+
+/* Écrans qui centrent leur contenu : « ressorts » avant/après → centré s'il y a de la place, défilable sans rien couper s'il n'y en a pas */
+#zoneOverlay, #endScreen, #mgMessage { overflow-y: auto; justify-content: flex-start; }
+#zoneOverlay::before, #zoneOverlay::after, #endScreen::before, #endScreen::after,
+#mgMessage::before, #mgMessage::after { content: ''; flex: 1 0 0; }
+
+#btnCaseClose {
+  position: absolute; top: 6px; right: 8px; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,215,107,0.14); border: 2px solid #ffd76b; color: #ffd76b;
+  font-size: 15px; font-weight: bold; cursor: pointer; line-height: 1; font-family: inherit; padding: 0;
+}
+#casePaper { position: relative; }
+
+@media (max-height: 460px) {
+  /* ---- Mini-jeux ---- */
+  #miniGameContainer { padding: 6px 10px; }
+  #mgHeader { margin-bottom: 5px; }
+  #mgTitle { font-size: 15px; }
+  #mgStats { gap: 12px; font-size: 12px; }
+  #mgCloseBtn { padding: 5px 12px; font-size: 12px; min-height: 32px; }
+  #mgDOM { padding: 8px 10px; }
+  .meme-quiz { gap: 8px; }
+  .meme-topbar { font-size: 13px; }
+  .meme-hearts { font-size: 15px; }
+  .meme-img-wrap, .meme-img-wrap img { max-height: calc(34 * var(--vh, 1vh)); }
+  .meme-question { font-size: 15px; line-height: 1.3; }
+  .meme-options { gap: 6px; }
+  .meme-option { padding: 8px 12px; font-size: 13px; }
+  .enigmaQuestion { font-size: 15px; margin-bottom: 8px; line-height: 1.35; }
+  .enigmaOptions { gap: 8px; }
+  .enigmaOption { padding: 9px 10px; font-size: 13px; }
+  .mgBtn { padding: 8px 14px; font-size: 13px; }
+  .mgGrid { gap: 8px; }
+  .mgTitle { font-size: 16px; margin-bottom: 4px; }
+  .mgSub { font-size: 11px; margin-bottom: 8px; }
+  .mgCard { padding: 8px; font-size: 12px; }
+  .mgCard .emoji { font-size: 22px; margin-bottom: 2px; }
+  .mgCard .itemImg { height: calc(24 * var(--vh, 1vh)); margin-bottom: 4px; }
+  /* Message de fin (Bravo / Raté) */
+  #mgMessage { padding: 10px 16px; }
+  #mgMessage h3 { font-size: 20px; margin-bottom: 4px; }
+  #mgMessage p { font-size: 13px; margin-bottom: 8px; line-height: 1.35; }
+  #mgStars { font-size: 24px; letter-spacing: 6px; margin-bottom: 4px; }
+  #mgRecord { margin: 0 0 8px; font-size: 12px; }
+  #mgMessage button { padding: 8px 22px; font-size: 14px; flex: none; }
+  #mgMessage #mgRetryBtn { padding: 6px 20px; }
+  /* ---- Panneaux ---- */
+  #teamMenu { padding: 10px 14px; }
+  #teamMenu h2 { font-size: 18px; margin-bottom: 2px; padding-right: 50px; }
+  #teamMenu .sub { font-size: 12px; margin-bottom: 8px; }
+  #teamGrid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .persoCard { padding: 7px 9px; }
+  .persoCard .cardHeader { margin-bottom: 4px; }
+  .persoCard .avatar { width: 34px; height: 34px; }
+  #teamMenu .closeHint { margin-top: 8px; font-size: 11px; }
+  #btnCloseTeam { top: 6px; right: max(12px, env(safe-area-inset-right, 0px)); width: 40px; height: 40px; }
+  #bigMap { padding: 6px 10px; }
+  #bigMap h2 { font-size: 15px; margin-bottom: 4px; }
+  #bigMapCanvas { max-height: calc(100 * var(--vh, 1vh) - 62px); max-width: 94vw; }
+  #bigMap .closeHint { margin-top: 4px; font-size: 11px; }
+  #zoneOverlay { padding: 10px 18px; }
+  #zoneOverlay .zoneBadge { margin-bottom: 6px; padding: 2px 12px; }
+  #zoneOverlay h2 { font-size: 22px; margin-bottom: 4px; }
+  #zoneOverlay .zoneTheme { font-size: 12px; margin-bottom: 8px; }
+  #zoneOverlay .zoneDesc { font-size: 13px; line-height: 1.4; margin-bottom: 10px; }
+  #zoneOverlay button { padding: 9px 22px; font-size: 14px; flex: none; }
+  #casePaper { max-height: calc(94 * var(--vh, 1vh)); padding: 10px 16px; }
+  #casePaper h3 { font-size: 16px; padding-right: 40px; }
+  #casePaper .caseIntro, #casePaper .caseItem { font-size: 12px; }
+  #casePaper h4 { margin: 8px 0 4px; font-size: 13px; }
+  #casePaper .closeHint { margin-top: 8px; font-size: 11px; }
+  /* ---- Fin du jeu / chargement ---- */
+  #endScreen { padding: 10px 16px; }
+  #endScreen h1 { font-size: 22px; margin-bottom: 6px; }
+  #endScreen p { font-size: 13px; }
+  #endScreen .credits { font-size: 12px; line-height: 1.5; margin: 8px 0 12px; }
+  #endScreen button { font-size: 15px; padding: 8px 20px; flex: none; }
+  #loadingScreen h2 { font-size: 18px; margin-bottom: 10px; }
+}
+
+/* Téléphone très peu haut (≤ 330 px : barre d'adresse visible) : on rapetisse les gros emojis / marges des mini-jeux « texte »
+   (ils ont des tailles écrites directement dans le JS, d'où les !important) pour que le bouton d'action tienne à l'écran sans défiler. */
+@media (max-height: 330px) {
+  #mgDOM [style*="font-size:64px"] { font-size: 34px !important; margin: 0 0 2px !important; }
+  #mgDOM [style*="line-height:1.6"] { line-height: 1.3 !important; }
+  #mgDOM [style*="margin-bottom:18px"] { margin-bottom: 8px !important; }
+  #mgDOM [style*="margin-bottom:14px"] { margin-bottom: 6px !important; }
+  #mgDOM [style*="margin-top:14px"] { margin-top: 6px !important; }
+}

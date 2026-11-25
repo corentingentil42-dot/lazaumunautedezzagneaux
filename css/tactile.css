@@ -2,24 +2,33 @@
    css/tactile.css — Écran tactile (téléphone) : joystick, boutons, touches de rythme, « tourne ton téléphone ». Chargé en dernier (il surcharge le reste).
    ============================================================ */
 
-  /* Tactile */
+  /* Tailles des commandes : elles suivent la hauteur visible (--vh, mesurée par ecran.js) et évitent l'encoche (zones de sécurité). */
+  body.touch {
+    --pad: clamp(96px, calc(38 * var(--vh, 1vh)), 140px);
+    --bigbtn: clamp(60px, calc(23 * var(--vh, 1vh)), 84px);
+    --smallbtn: clamp(38px, calc(12 * var(--vh, 1vh)), 46px);
+    --edge-l: max(14px, env(safe-area-inset-left, 0px));
+    --edge-r: max(14px, env(safe-area-inset-right, 0px));
+    --edge-b: max(10px, calc(4 * var(--vh, 1vh)), env(safe-area-inset-bottom, 0px));
+    --mm-w: 104px;           /* largeur de la mini-carte en mode tactile */
+  }
   #touchUI { display: none; position: absolute; inset: 0; z-index: 30; pointer-events: none; }
   body.touch #touchUI { display: block; }
   body.touch #hudHint { display: none; }
   /* Pendant un mini-jeu, l'écran du mini-jeu (z-index 35) recouvrait le joystick et les boutons : on les remonte au-dessus. */
   body.t-arrows #touchUI, body.t-jump #touchUI, body.t-asdf #touchUI { z-index: 60; }
   #touchPad {
-    position: absolute; left: 22px; bottom: 22px; width: 132px; height: 132px; border-radius: 50%;
+    position: absolute; left: var(--edge-l, 22px); bottom: var(--edge-b, 22px); width: var(--pad, 132px); height: var(--pad, 132px); border-radius: 50%;
     background: rgba(255,255,255,0.10); border: 2px solid rgba(255,215,107,0.45);
     pointer-events: auto; touch-action: none; display: none;
   }
   #touchKnob {
-    position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px;
+    position: absolute; left: 50%; top: 50%; width: 42%; height: 42%; margin: -21% 0 0 -21%;
     border-radius: 50%; background: rgba(255,215,107,0.55); border: 2px solid #ffd76b;
   }
   #touchBtns {
-    position: absolute; right: 18px; bottom: 22px; display: none; flex-direction: column;
-    align-items: flex-end; gap: 10px; pointer-events: none;
+    position: absolute; right: var(--edge-r, 18px); bottom: var(--edge-b, 22px); display: none; flex-direction: column;
+    align-items: flex-end; gap: 8px; pointer-events: none;
   }
   .tRow { display: flex; gap: 8px; }
   .tb {
@@ -28,13 +37,13 @@
     font-family: inherit; font-weight: bold; cursor: pointer;
   }
   .tb:active { background: rgba(255,215,107,0.5); color: #1b2735; }
-  .tb.small { width: 44px; height: 44px; font-size: 14px; }
-  .tb.big { width: 82px; height: 82px; font-size: 26px; background: rgba(255,215,107,0.88); color: #1b2735; }
+  .tb.small { width: var(--smallbtn, 44px); height: var(--smallbtn, 44px); font-size: calc(var(--smallbtn, 44px) * 0.32); }
+  .tb.big { width: var(--bigbtn, 82px); height: var(--bigbtn, 82px); font-size: calc(var(--bigbtn, 82px) * 0.32); background: rgba(255,215,107,0.88); color: #1b2735; }
   #touchRhythm {
-    position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%);
+    position: absolute; left: 50%; bottom: var(--edge-b, 20px); transform: translateX(-50%);
     display: none; gap: 14px; pointer-events: none;
   }
-  .tb.rh { width: 70px; height: 70px; font-size: 24px; }
+  .tb.rh { width: calc(var(--bigbtn, 70px) * 0.9); height: calc(var(--bigbtn, 70px) * 0.9); font-size: 22px; }
   body.t-hub #touchPad, body.t-hub #touchBtns,
   body.t-arrows #touchPad, body.t-jump #touchBtns { display: block; }
   body.t-hub #touchBtns, body.t-jump #touchBtns { display: flex; }
@@ -49,4 +58,52 @@
     align-items: center; justify-content: center; text-align: center; padding: 30px; font-size: 20px; line-height: 1.5;
   }
   @media (orientation: portrait) and (pointer: coarse) { #rotateHint { display: flex; } }
-  body.touch #todoPanel { width: 190px; font-size: 11px; top: 40px; }
+  #rotateHint small { display: none; margin-top: 12px; font-size: 13px; color: #9db3a8; }
+  body.fs-ok #rotateHint small { display: block; }
+
+  /* ---------- Téléphone : l'interface du hub ---------- */
+  /* Aides clavier / souris : remplacées par une version « toucher » */
+  .hintTouch { display: none; }
+  body.touch .hintKb { display: none; }
+  body.touch .hintTouch { display: inline; }
+  body.touch #hud { top: 8px; left: var(--edge-l); font-size: 11px; padding: 4px 9px; }
+  body.touch #todoPanel {
+    top: 38px; left: var(--edge-l); width: min(210px, 32vw); font-size: 10.5px;
+    max-height: calc(100 * var(--vh, 1vh) - var(--pad) - var(--edge-b) - 50px); overflow-y: auto;
+  }
+  body.touch #todoHead { padding: 4px 9px; }
+  body.touch #todoList { padding: 0 9px 6px; }
+  /* La mini-carte passe en haut à droite (en bas à droite, elle était cachée sous les boutons R M J E) */
+  body.touch #miniMap { top: 8px; bottom: auto; right: var(--edge-r); padding: 3px; border-width: 2px; }
+  body.touch #miniMapCanvas { width: calc(var(--mm-w) - 12px); height: auto; }
+  body.touch #miniMapLabel { display: none; }
+  /* Boutons système : plein écran + son (à gauche de la mini-carte) */
+  #sysBtns { display: none; position: absolute; top: 8px; right: calc(var(--edge-r, 14px) + var(--mm-w, 104px) + 8px); gap: 6px; z-index: 13; }
+  body.touch.t-hub #sysBtns, body.touch.t-dialogue #sysBtns { display: flex; }
+  body:not(.fs-ok) #btnFullscreen, body.app-mode #btnFullscreen { display: none; }
+  .sysb {
+    width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78);
+    color: #ffd76b; font-size: 17px; line-height: 1; cursor: pointer; font-family: inherit; padding: 0;
+  }
+  .sysb:active, body.fs #btnFullscreen { background: rgba(255,215,107,0.4); }
+  /* Dialogue : la boîte laisse la place du gros bouton ▶ à droite, et elle est plus compacte */
+  body.touch #dialogueBox {
+    bottom: var(--edge-b); padding: 8px 12px 6px; gap: 10px;
+    width: min(calc(100% - 2 * (var(--bigbtn) + var(--edge-r) + 10px)), 640px);
+  }
+  body.touch #dialogueName { font-size: 12px; margin-bottom: 2px; }
+  body.touch #dialogueText { font-size: 13px; line-height: 1.4; min-height: 0; }
+  body.touch #dialoguePortraitWrap { width: 48px; height: 48px; }
+  /* Grande image d'expression de Coco : en haut de l'écran, et jamais plus haute que la place au-dessus de la boîte */
+  body.touch #cutsceneImg {
+    top: 3%; transform: translate(-50%, 0);
+    max-height: calc(100 * var(--vh, 1vh) - 150px); max-width: min(380px, 44vw);
+  }
+  body.touch #cutsceneImg.pop { animation-name: cutscenePopTouch; }
+  @keyframes cutscenePopTouch {
+    0% { opacity: 0; transform: translate(-50%, 8%) scale(0.85); }
+    100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  }
+  /* Tutoriel d'un mini-jeu sur téléphone : les pastilles de touches du clavier ne servent à rien, on gagne de la place */
+  body.touch #tutorialOverlay .keys { display: none; }
+  body.touch #toast { top: 44px; font-size: 13px; padding: 7px 18px; }

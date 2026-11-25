@@ -5,10 +5,10 @@
 
 /* ---------- ÉCRAN TACTILE (téléphone / tablette) ---------- */
 let IS_TOUCH = false;
-function enableTouch() { if (IS_TOUCH) return; IS_TOUCH = true; document.body.classList.add('touch'); touchLastMode = ''; }
+function enableTouch() { if (IS_TOUCH) return; IS_TOUCH = true; document.body.classList.add('touch'); touchLastMode = ''; fitView(); }
 try { if ((window.matchMedia && matchMedia('(pointer: coarse)').matches) || /[?&]touch=1/.test(location.search)) IS_TOUCH = true; } catch (e) {}
 window.addEventListener('touchstart', enableTouch, { once: true, passive: true });
-if (IS_TOUCH) document.body.classList.add('touch');
+if (IS_TOUCH) { document.body.classList.add('touch'); fitView(); }
 let touchLastMode = '';
 const KEYCODES = { ArrowUp: 'ArrowUp', ArrowDown: 'ArrowDown', ArrowLeft: 'ArrowLeft', ArrowRight: 'ArrowRight', ' ': 'Space', Enter: 'Enter' };
 function pressKey(key, down) {
@@ -16,11 +16,13 @@ function pressKey(key, down) {
   window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { key, code, bubbles: true }));
 }
 // Quel jeu de boutons afficher ? (cache : on ne touche au DOM que si ça change)
+const elTutoOverlay = document.getElementById('tutorialOverlay');
 const TOUCH_ARROWS = new Set(['course', 'moto', 'volley', 'collecte', 'esquive', 'duel']);
 function touchModeNow() {
   if (gameState === 'playing') return 'hub';
   if (gameState === 'dialogue') return 'dialogue';
-  if (gameState === 'miniGame' && mgState && mgState.zone && !mgState.over) {
+  // (pendant le tutoriel du mini-jeu on cache les commandes : elles ne servent pas encore et cachaient le texte)
+  if (gameState === 'miniGame' && mgState && mgState.zone && !mgState.over && !elTutoOverlay.classList.contains('active')) {
     const t = mgState.zone.quete.type;
     if (TOUCH_ARROWS.has(t)) return 'arrows';
     if (t === 'endurance') return 'jump';
@@ -90,7 +92,14 @@ function updateTouchUI() {
       else if (a === 'todo') toggleTodo();
     });
   });
-  // Taper sur la boîte de dialogue = continuer ; taper sur la grande carte = la fermer.
-  document.getElementById('dialogueBox').addEventListener('click', () => { if (gameState === 'dialogue') advanceDialogue(); });
+  // Dialogue : toucher n'importe où (pas sur un bouton) = réplique suivante ; le bouton « Passer ⏭ » saute toute la discussion.
+  // (le délai de 300 ms ignore le toucher qui vient d'ouvrir la discussion)
+  document.getElementById('gameContainer').addEventListener('click', e => {
+    if (gameState !== 'dialogue') return;
+    if (e.target.closest && e.target.closest('button, #touchUI, #sysBtns')) return;
+    if (performance.now() - dialogueOpenedAt < 300) return;
+    advanceDialogue();
+  });
+  document.getElementById('dialogueSkip').addEventListener('click', e => { e.stopPropagation(); skipDialogue(); });
   document.getElementById('bigMap').addEventListener('click', () => { if (gameState === 'bigMap') toggleBigMap(); });
 })();

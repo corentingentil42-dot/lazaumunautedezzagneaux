@@ -16,7 +16,7 @@
   #cutsceneImg {
     position: absolute; left: 50%; top: 42%;
     transform: translate(-50%, -55%);
-    max-width: min(380px, 44vw); max-height: 58vh;
+    max-width: min(380px, 44vw); max-height: calc(58 * var(--vh, 1vh));
     border-radius: 18px; border: 3px solid #ffd76b;
     box-shadow: 0 18px 48px rgba(0,0,0,0.6), 0 0 0 7px rgba(20,32,43,0.45);
     background: rgba(10,16,26,0.4); z-index: 30; display: none;
@@ -42,4 +42,11 @@
   #dialogueTextWrap { flex: 1; }
   #dialogueName { font-weight: bold; color: #ffd76b; font-size: 14px; margin-bottom: 4px; }
   #dialogueText { font-size: 14px; line-height: 1.5; color: #f2f2f2; min-height: 42px; }
-  #dialogueHint { font-size: 11px; color: #9db3a8; margin-top: 6px; text-align: right; }
+  /* Ligne d'aide sous le texte : « Passer ⏭ » à gauche (saute toute la discussion, aussi : Échap), l'indication « continuer » à droite. */
+  #dialogueHint { font-size: 11px; color: #9db3a8; margin-top: 6px; min-height: 28px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  #dialogueSkip {
+    flex: none; min-height: 28px; padding: 3px 12px;
+    background: rgba(255,215,107,0.12); color: #ffd76b; border: 1.5px solid rgba(255,215,107,0.7);
+    border-radius: 14px; font-family: inherit; font-size: 12px; font-weight: bold; cursor: pointer;
+  }
+  #dialogueSkip:hover, #dialogueSkip:active { background: rgba(255,215,107,0.35); }

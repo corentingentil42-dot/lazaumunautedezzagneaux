@@ -27,6 +27,10 @@ Jeu en pixel art (HTML5 canvas) sur la bande : on se balade sur la place, on rec
 | Les **couleurs / tailles / mise en page** d'un écran | `css/*.css` (voir tableau CSS) |
 | L'écran-titre (texte, note de sauvegarde, boutons) | `index.html` + `css/titre.css` |
 | Les commandes tactiles (joystick, boutons) | `js/moteur/tactile.js` + `css/tactile.css` |
+| La **taille de l'écran**, le **plein écran** et l'orientation (téléphone) | `js/moteur/ecran.js` |
+| La mise en page des **petits écrans** (téléphone en paysage) | `css/petit-ecran.css` (+ `css/tactile.css`) |
+| « Passer » les dialogues | `js/interface/dialogue.js` (`skipDialogue`) + bouton `#dialogueSkip` dans `index.html` |
+| L'**icône / l'installation** du jeu sur l'écran d'accueil du téléphone | `manifest.webmanifest`, `sw.js`, `assets/icones/` |
 | Les textes fixes de l'interface (boutons, bulles…) | `index.html` |
 | Publier une nouvelle version | `python3 outils/changer-version.py 20.27` |
 
@@ -46,6 +50,7 @@ js/                 Le code du jeu, rangé par rôle :
   minijeux/           le cœur des mini-jeux + 1 fichier par mini-jeu
 assets/             Les images (portraits, sprites, illustrations de mini-jeux)
 outils/             Petits utilitaires (changer le numéro de version)
+manifest.webmanifest + sw.js   Pour « Installer l'application » / « Sur l'écran d'accueil » (le jeu s'ouvre alors en plein écran, sans barre d'adresse)
 tableau-des-100-suspects.xlsx   Le tableau des suspects (fichier de travail)
 ```
 
@@ -61,6 +66,7 @@ Chargés dans cet ordre (le dernier gagne en cas d'égalité, d'où `tactile.css
 | `css/hud.css` | Interface en jeu : bulle « Appuie sur E », bandeau du haut, aide touches, mini-carte, liste « À faire », bouton son. |
 | `css/panneaux.css` | Panneaux plein écran : grande carte, menu équipe (cartes persos), fiche de zone, dossier d'enquête. |
 | `css/minijeux.css` | Tout ce qui touche aux mini-jeux : conteneur, tuto, message de fin + étoiles, quiz, boutons, cartes, secousse. |
+| `css/petit-ecran.css` | Écrans peu hauts (≤ 460 px : téléphone en paysage) : panneaux, mini-jeux et menus compacts ; rien ne dépasse de l'écran. |
 | `css/tactile.css` | Écran tactile (téléphone) : joystick, boutons, touches de rythme, « tourne ton téléphone ». Chargé en dernier (il surcharge le reste). |
 
 ### JavaScript (`js/`)
@@ -79,6 +85,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 #### Moteur
 | Fichier | Rôle |
 |---|---|
+| `js/moteur/ecran.js` | Taille réelle de l'écran (`--app-w`, `--app-h`, `--vh`), plein écran (premier toucher sur téléphone), orientation paysage, appli installable. **Chargé en premier.** |
 | `js/moteur/sprites.js` | Chargement des sprites PNG des persos (grille 4×5) et calibrage. |
 | `js/moteur/dialogues-outils.js` | Outils pour choisir / formater les dialogues d'affinité (persoNom, formatAffin, …). |
 | `js/moteur/sauvegarde.js` | Sauvegarde automatique (localStorage) : saveGame, loadGame, resetGame. |

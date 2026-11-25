@@ -62,8 +62,8 @@
   }
   .meme-topbar { width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: #cfe8d9; }
   .meme-hearts { font-size: 18px; letter-spacing: 2px; }
-  .meme-img-wrap { width: 100%; max-width: 420px; max-height: 46vh; border-radius: 10px; overflow: hidden; background: #10182c; display: flex; align-items: center; justify-content: center; }
-  .meme-img-wrap img { max-width: 100%; max-height: 46vh; width: auto; height: auto; object-fit: contain; display: none; }
+  .meme-img-wrap { width: 100%; max-width: 420px; max-height: calc(46 * var(--vh, 1vh)); border-radius: 10px; overflow: hidden; background: #10182c; display: flex; align-items: center; justify-content: center; }
+  .meme-img-wrap img { max-width: 100%; max-height: calc(46 * var(--vh, 1vh)); width: auto; height: auto; object-fit: contain; display: none; }
   .meme-question { font-size: 19px; font-weight: bold; color: #ffd76b; text-align: center; line-height: 1.4; }
   .meme-options { width: 100%; display: flex; flex-direction: column; gap: 10px; }
   .meme-option {
@@ -145,8 +145,11 @@
     display: none; flex-direction: column;
     align-items: center; justify-content: flex-start;
     z-index: 50; padding: 40px; text-align: center;
-    overflow-y: auto;   /* si le texte est plus haut que l'écran (téléphone en paysage), on peut le faire défiler */
+    overflow: hidden;
   }
+  /* Si le texte est plus haut que l'écran (téléphone en paysage), seul le TEXTE défile ; titre et bouton « J'ai compris » restent toujours visibles, sans rien recouvrir. */
+  #tutoContent { flex: 0 1 auto; min-height: 0; overflow-y: auto; width: 100%; display: flex; flex-direction: column; align-items: center; -webkit-overflow-scrolling: touch; }
+  #tutorialOverlay h3, #tutorialOverlay button { flex: none; }
   /* ces deux « ressorts » centrent le contenu quand il y a de la place, et disparaissent quand il n'y en a pas (rien n'est coupé en haut) */
   #tutorialOverlay::before, #tutorialOverlay::after { content: ''; flex: 1 0 0; }
   #tutorialOverlay.active { display: flex; }
@@ -170,10 +173,17 @@
   @media (max-height: 520px) {
     #tutorialOverlay { padding: 12px 24px; }
     #tutorialOverlay h3 { font-size: 20px; margin-bottom: 6px; }
-    #tutorialOverlay p { font-size: 13px; margin-bottom: 4px; line-height: 1.35; }
+    #tutorialOverlay p { font-size: 13px; margin-bottom: 4px; line-height: 1.35; max-width: min(100%, 760px); }
     #tutorialOverlay .keys { margin: 8px 0 4px; gap: 8px; }
     #tutorialOverlay .keyBadge { padding: 4px 10px; font-size: 12px; }
     #tutorialOverlay button { padding: 8px 26px; margin-top: 6px; font-size: 14px; flex: none; }
+  }
+  /* Téléphone très peu haut (barre d'adresse visible) : on resserre encore */
+  @media (max-height: 330px) {
+    #tutorialOverlay { padding: 8px 18px; }
+    #tutorialOverlay h3 { font-size: 17px; margin-bottom: 4px; }
+    #tutorialOverlay p { font-size: 12px; line-height: 1.3; margin-bottom: 3px; }
+    #tutorialOverlay button { padding: 7px 24px; margin-top: 5px; font-size: 13px; }
   }
   #mgMessage .mgBtns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
   #mgMessage #mgRetryBtn {

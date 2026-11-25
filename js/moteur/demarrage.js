@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* ============ INITIALISATION ============ */
-const GAME_VERSION = 'v20.27';
+const GAME_VERSION = 'v20.28';
 // Diagnostic (touche D) : teste en direct les fichiers de Coco pour voir
 // ce qui se charge et ce qui manque, et affiche d'où le jeu est ouvert.
 function runDiagnostics() {
@@ -82,7 +82,10 @@ function checkAssetsPresence() {
   const hs = hasSave();
   document.getElementById('btnTitleStart').textContent = hs ? '▶ Continuer' : '▶ Commencer';
   document.getElementById('btnTitleNew').style.display = hs ? 'inline-block' : 'none';
-  document.getElementById('titlePrompt').textContent = hs ? 'Entrée : continuer · N : nouvelle partie' : 'Appuie sur Entrée pour commencer';
+  // (texte clavier sur ordinateur, texte « toucher » sur téléphone : les classes hintKb / hintTouch sont gérées par le CSS)
+  document.getElementById('titlePrompt').innerHTML = hs
+    ? '<span class="hintKb">Entrée : continuer · N : nouvelle partie</span><span class="hintTouch">Ta partie t\'attend : touche « Commencer »</span>'
+    : '<span class="hintKb">Appuie sur Entrée pour commencer</span><span class="hintTouch">Touche « Commencer » pour jouer</span>';
   document.getElementById('btnTitleStart').addEventListener('click', () => startGame(false));
   document.getElementById('btnTitleNew').addEventListener('click', newGameFromTitle);
   // Écran-titre : simple dégradé (css/titre.css), rien à dessiner tant qu'on n'a pas lancé la partie.

@@ -17,7 +17,7 @@
   #bigMapCanvas {
     background: #1a2a1a; image-rendering: pixelated;
     border: 3px solid #ffd76b; border-radius: 8px;
-    max-width: 80vw; max-height: 70vh;
+    max-width: 80vw; max-height: calc(70 * var(--vh, 1vh));
   }
   #bigMap .closeHint {
     margin-top: 16px; color: #9db3a8; font-size: 13px;
@@ -132,7 +132,7 @@
   /* ---- Dossier d'enquête (touche J) : L'Affaire du Vendredi 13 ---- */
   #caseJournal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(10,8,3,0.78); z-index: 45; }
   #caseJournal.active { display: flex; }
-  #casePaper { width: min(700px, 94vw); max-height: 84vh; overflow-y: auto; background: #211a0f; border: 2px solid #5a4a26; border-radius: 6px; padding: 20px 26px; color: #e8dcc0; box-shadow: 0 0 46px rgba(0,0,0,0.7); }
+  #casePaper { width: min(700px, 94vw); max-height: calc(84 * var(--vh, 1vh)); overflow-y: auto; background: #211a0f; border: 2px solid #5a4a26; border-radius: 6px; padding: 20px 26px; color: #e8dcc0; box-shadow: 0 0 46px rgba(0,0,0,0.7); }
   #casePaper h3 { color: #ffd76b; font-size: 23px; margin: 0 0 6px; letter-spacing: 1px; }
   #casePaper .caseStamp { display: inline-block; border: 2px solid #c0392b; color: #c0392b; padding: 2px 10px; border-radius: 4px; transform: rotate(-3deg); font-weight: bold; letter-spacing: 2px; font-size: 13px; margin: 6px 0 12px; }
   #casePaper h4 { color: #ffd76b; margin: 16px 0 6px; font-size: 15px; letter-spacing: 1px; }

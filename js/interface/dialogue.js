@@ -5,6 +5,7 @@
 
 let currentDialogue = null, dialogueIndex = 0;
 let dialogueOnClose = null;
+let dialogueOpenedAt = 0;   // sert à ignorer le toucher qui vient d'ouvrir la discussion (sinon il sauterait la 1re réplique)
 // Photo (portrait) d'un personnage : utilisée dans la boîte de dialogue ET,
 // désormais, dans le menu équipe à la place du sprite. Chemin :
 // assets/portraits/<id>.jpg (ou .jpeg ou .png, essayés dans cet ordre — le
@@ -108,6 +109,7 @@ function openDialogue(name, lines, onClose, persoId) {
   document.getElementById('interactPrompt').style.display = 'none';
   showExprPortrait(firstLine, firstLine.whoId || persoId);
   Snd.play('open');
+  dialogueOpenedAt = performance.now();
 }
 function advanceDialogue() {
   dialogueIndex++;
@@ -118,6 +120,12 @@ function advanceDialogue() {
     document.getElementById('dialogueText').textContent = line.text;
     showExprPortrait(line, line.whoId || currentDialogue.persoId);
   } else closeDialogue();
+}
+// « Passer » (bouton ou Échap) : on saute TOUTE la discussion d'un coup. La suite (onClose : lancer la quête, etc.) se fait comme si on l'avait lue.
+function skipDialogue() {
+  if (gameState !== 'dialogue' || !currentDialogue) return;
+  Snd.play('blip');
+  closeDialogue();
 }
 function closeDialogue() {
   document.getElementById('dialogueBox').classList.remove('active');

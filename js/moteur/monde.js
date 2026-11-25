@@ -6,11 +6,29 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
-const VIEW_W = 640, VIEW_H = 480;   // taille du canevas (le CSS l'agrandit pour remplir la fenêtre)
+// Taille du canevas du hub. La hauteur est fixe (480) ; la LARGEUR s'adapte au format de l'écran sur téléphone (voir fitView) :
+// 640 (= 4:3) sur ordinateur, jusqu'à ~1150 sur un téléphone très allongé. Le CSS étire ensuite le canevas pour remplir l'écran.
+let VIEW_W = 640;
+const VIEW_H = 480;
 // Zoom de la caméra du hub (promenade sur la carte) : 2.4 = tout est affiché 240 % plus gros.
 // Pour changer le zoom, c'est CETTE ligne. (Les mini-jeux ne sont pas concernés.)
 const HUB_ZOOM = 2.4;
-const SEE_W = VIEW_W / HUB_ZOOM, SEE_H = VIEW_H / HUB_ZOOM;   // ce que la caméra voit du monde, en pixels du monde
+let SEE_W = VIEW_W / HUB_ZOOM, SEE_H = VIEW_H / HUB_ZOOM;   // ce que la caméra voit du monde, en pixels du monde
+// Format de la vue : 4:3 partout, SAUF sur téléphone/tablette (body.touch) où le canevas épouse l'écran (de 4:3 jusqu'à 2,4:1 maximum ;
+// au-delà on garde des petites barres sur les côtés plutôt que d'étirer le monde). Appelée par ecran.js à chaque changement de taille.
+const VIEW_ASPECT_MAX = 2.4;
+function fitView() {
+  let aspect = 4 / 3;
+  if (document.body.classList.contains('touch') && window.innerHeight > 0) {
+    aspect = Math.max(4 / 3, Math.min(VIEW_ASPECT_MAX, window.innerWidth / window.innerHeight));
+  }
+  const w = Math.round(VIEW_H * aspect / 2) * 2;
+  document.documentElement.style.setProperty('--view-aspect', String(w / VIEW_H));
+  if (w === VIEW_W) return;
+  VIEW_W = w; SEE_W = VIEW_W / HUB_ZOOM;
+  canvas.width = VIEW_W;               // (redimensionner un canevas remet son contexte à zéro)
+  ctx.imageSmoothingEnabled = false;
+}
 const WORLD_W = 3600, WORLD_H = 2700;
 let gameState = 'loading'; // 'loading' | 'title' | 'playing' | ...
 let keys = {};
@@ -22,6 +40,7 @@ const elInteractPrompt = document.getElementById('interactPrompt');
 const elMiniMap = document.getElementById('miniMapCanvas');
 const miniMapCtx = elMiniMap ? elMiniMap.getContext('2d') : null;
 const camera = { x: 0, y: 0 };
+fitView();   // (au cas où la page est déjà en mode tactile au chargement)
 const HUB_X = WORLD_W / 2;
 const HUB_Y = WORLD_H / 2;
 const HUB_RADIUS = 220;

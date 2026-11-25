@@ -45,9 +45,9 @@
 
 /* Note grise en bas de l'écran-titre : limites de la sauvegarde */
 #saveNote {
-  flex: none; width: min(94%, 640px); margin: 0 auto max(8px, 1.6vh);
+  flex: none; width: min(94%, 640px); margin: 0 auto max(8px, calc(1.6 * var(--vh, 1vh)));
   padding: 5px 12px; border-radius: 8px;
-  font-size: clamp(8px, 1.9vh, 11.5px); line-height: 1.45;
+  font-size: clamp(8px, calc(1.9 * var(--vh, 1vh)), 11.5px); line-height: 1.45;
   color: #8a9c95; text-align: center;
   background: rgba(12,20,30,0.55);   /* léger fond sombre : lisible même sur le décor clair */
 }
@@ -62,3 +62,10 @@
   #titleScreen button { padding: 8px 22px; font-size: 15px; }
   #titleVersion { margin-top: 8px; }
 }
+
+/* Astuces plein écran : une seule ligne grise, seulement quand elle sert */
+#fsHint, #iosHint { display: none; margin-top: 10px; max-width: min(92%, 520px); font-size: 11px; color: #9db3a8; line-height: 1.4; }
+#iosHint b { color: #cfe8d9; font-weight: normal; text-decoration: underline dotted; }
+body.touch.fs-ok:not(.fs):not(.app-mode) #fsHint { display: block; }
+body.ios-browser:not(.app-mode) #iosHint { display: block; }
+body.ios-browser #fsHint { display: none; }

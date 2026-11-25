@@ -189,6 +189,7 @@ function toggleCaseJournal() {
     gameState = 'caseJournal';
   }
 }
+document.getElementById('btnCaseClose').addEventListener('click', () => { if (gameState === 'caseJournal') toggleCaseJournal(); });
 document.getElementById('caseJournal').addEventListener('click', (e) => {
   if (e.target.id === 'caseJournal' && gameState === 'caseJournal') toggleCaseJournal();
 });

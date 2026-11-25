@@ -8,16 +8,22 @@
     font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
     overflow: hidden; color: #fff;
   }
+  /* Téléphone : pas de « tirer pour rafraîchir », pas de zoom au double toucher, pas de sélection de texte / menu de pression longue pendant qu'on joue */
+  html, body { overscroll-behavior: none; touch-action: manipulation; }
+  body.touch { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+  body.touch img { -webkit-user-drag: none; }
+  /* TAILLE : --app-w / --app-h = la zone RÉELLEMENT visible, mesurée par js/moteur/ecran.js.
+     (« 100vh » sur téléphone = hauteur sans barre d'adresse → le bas du jeu était coupé.) Les valeurs après la virgule ne servent que si le JS n'a pas encore tourné. */
   #gameContainer {
-    position: relative; width: 100vw; height: 100vh;
+    position: fixed; left: 0; top: 0; width: var(--app-w, 100vw); height: var(--app-h, 100vh);
     display: flex; align-items: center; justify-content: center;
   }
   canvas {
     background: #6ab150; image-rendering: pixelated;
     image-rendering: crisp-edges;
-    max-width: 100vw; max-height: 100vh;
+    max-width: var(--app-w, 100vw); max-height: var(--app-h, 100vh);
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
   }
-  /* Le jeu remplit la fenêtre en gardant son format 4:3 (avant il restait en 640×480, tout petit sur grand écran) */
-  #game { width: min(100vw, calc(100vh * 4 / 3)); height: auto; aspect-ratio: 4 / 3; max-width: none; max-height: none; }
+  /* Le jeu remplit la fenêtre en gardant le format de son canevas : 4:3 par défaut ; sur téléphone la vue est plus large (--view-aspect, voir fitView() dans monde.js). */
+  #game { width: min(var(--app-w, 100vw), calc(var(--app-h, 100vh) * var(--view-aspect, 1.3333))); height: auto; aspect-ratio: var(--view-aspect, 1.3333); max-width: none; max-height: none; }
   #fxCanvas { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; background: transparent; box-shadow: none; pointer-events: none; z-index: 60; }

@@ -31,6 +31,7 @@ window.addEventListener('keydown', (e) => {
   if (gameState === 'miniGame' && isR && mgRetryVisible()) { e.preventDefault(); document.getElementById('mgRetryBtn').click(); return; }
   if (gameState === 'endScreen' && (e.key === 'Enter' || k === 'escape')) { closeEndScreen(); return; }
   if (gameState === 'dialogue' && (e.key === 'Enter' || e.key === ' ')) { advanceDialogue(); return; }
+  if (gameState === 'dialogue' && k === 'escape') { skipDialogue(); return; }
   if (gameState === 'playing') {
     if (k === 'e') { tryInteract(); return; }
     if (k === 'n') { Snd.toggleMute(); return; }

@@ -127,7 +127,7 @@ const Snd = (() => {
     muted = m;
     try { localStorage.setItem('zaum_mute', m ? '1' : '0'); } catch (e) {}
     if (master) master.gain.value = m ? 0 : 1;
-    const b = document.getElementById('btnSound'); if (b) b.textContent = m ? '🔇' : '🔊';
+    document.querySelectorAll('#btnSound, #btnSoundTouch').forEach(b => { b.textContent = m ? '🔇' : '🔊'; });
   }
   document.addEventListener('visibilitychange', () => {
     if (!ac) return;
@@ -135,6 +135,6 @@ const Snd = (() => {
   });
   return { play, music, ensure, setMuted, toggleMute() { ensure(); setMuted(!muted); return muted; }, isMuted: () => muted };
 })();
-(function () { const b = document.getElementById('btnSound'); if (b) { b.textContent = Snd.isMuted() ? '🔇' : '🔊'; b.addEventListener('click', () => Snd.toggleMute()); } })();
+document.querySelectorAll('#btnSound, #btnSoundTouch').forEach(b => { b.textContent = Snd.isMuted() ? '🔇' : '🔊'; b.addEventListener('click', e => { e.stopPropagation(); Snd.toggleMute(); }); });
 // Le navigateur n'autorise le son qu'après un geste : au premier clic / touche / toucher on réveille l'audio.
 ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => Snd.ensure(), { once: true, passive: true }));
