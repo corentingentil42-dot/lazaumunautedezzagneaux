@@ -49,7 +49,9 @@ function mgFitCanvas() {
   const cont = document.getElementById('miniGameContainer'), box = document.getElementById('mgBody'), c = document.getElementById('mgCanvas');
   if (!cont || !box || !c || !cont.classList.contains('active') || !cont.classList.contains('mgIsCanvas')) return;
   const ratio = c.width / c.height;
-  const court = window.innerHeight <= 460;
+  // « Plein écran » = écran tactile (téléphone / tablette) OU écran très court. On ne se fie PAS qu'à la hauteur : le navigateur de certains téléphones
+  // annonce une fenêtre de ~1560×720 px CSS (mode « version pour ordinateur », zoom d'affichage…), et le jeu restait alors petit au milieu (v20.28-20.30).
+  const court = document.body.classList.contains('touch') || window.innerHeight <= 460;
   cont.classList.toggle('mg-compact', court);
   let marge = 0;
   if (court) {
@@ -59,7 +61,8 @@ function mgFitCanvas() {
   const wide = court && marge >= MG_MARGE_MIN;
   cont.classList.toggle('mg-wide', wide);
   cont.style.setProperty('--mg-marge', Math.max(0, marge - 12) + 'px');
-  const w = Math.floor(Math.min(box.clientWidth, box.clientHeight * ratio, c.width));   // jamais agrandi au-delà de sa taille interne (comme avant, sur ordinateur)
+  // sur ordinateur (souris) le jeu n'est jamais agrandi au-delà de sa taille interne (comme avant) ; en mode plein écran il prend toute la place
+  const w = Math.floor(Math.min(box.clientWidth, box.clientHeight * ratio, court ? 1e9 : c.width));
   c.style.width = w + 'px'; c.style.height = Math.floor(w / ratio) + 'px';
 }
 if (window.ResizeObserver) new ResizeObserver(() => mgFitCanvas()).observe(document.getElementById('miniGameContainer'));

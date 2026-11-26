@@ -22,27 +22,35 @@ const COURSE = {
   STEP: 1 / 120,   // pas de la simulation (fixe : même course quel que soit l'écran)
   PY: 385,         // hauteur du joueur à l'écran
   START_T: 3.0,    // durée du décompte avant le départ (s)
-  FALL_T: 1.05,    // durée de la chute (s)
-  SLOW_T: 2.4,     // durée du redémarrage « au ralenti » (s)
-  INV_T: 1.7,      // invulnérabilité (clignotement) après être reparti (s)
+  FALL_T: 0.85,    // durée de la chute (s)
+  SLOW_T: 1.4,     // durée du redémarrage « au ralenti » (s)
+  INV_T: 1.5,      // invulnérabilité (clignotement) après être reparti (s)
+  GRACE_T: 1.4,    // après le GO : les coureurs ne se percutent pas (sinon on tombait dès le départ en rentrant dans celui de devant)
+  ROAD_HW: 116,    // demi-largeur de la route (px) : plus large = plus de place pour éviter rochers et concurrents
+  GRASS_SLOW: 0.75,   // vitesse relative dans l'herbe (1 = pas de ralentissement)
+  ROCK_X: 19, ROCK_Y: 20,   // « taille » d'un rocher pour la collision (plus petit = plus indulgent)
+  ROCK_CORE: 9,    // en plein milieu du rocher (moins de 9 px d'écart) : CHUTE ; en l'effleurant : simple bosse (on est dévié et on ralentit)
+  ELASTIC_D: 1000, ELASTIC_MAX_AHEAD: 0.12, ELASTIC_MAX_BEHIND: 0.07,   // élastique des rivaux (distance en px pour atteindre l'effet complet, bonus max de ralentissement / d'accélération)
+  ASSIST: 1,       // téléphone : coup de pouce qui écarte doucement le vélo des rochers (0 = aucun aide)
+  HIT_FALL_V: 100,  // on ne tombe en rentrant dans un coureur que si on le percute à plus de 45 px/s de vitesse relative ; sinon, simple bousculade
   PODIUM: 3,       // il faut finir dans les 3 premiers
   MAX_T: 150       // garde-fou : la course s'arrête après 150 s
 };
 const COURSE_RIVALS = [
   // skill : vitesse (Coco = 1) · aggr : tendance à te couper la route · steer : vitesse de braquage (px/s)
   // aware : chance de voir un rocher à temps · stumble : risque de faire une gaffe (chute) pendant la course
-  { id: 'tristan',   skill: 1.030, aggr: 0.75, steer: 185, aware: 0.94, stumble: 0.55 },
-  { id: 'maeva',     skill: 1.005, aggr: 0.10, steer: 165, aware: 0.96, stumble: 0.30 },
-  { id: 'callipyge', skill: 0.990, aggr: 0.00, steer: 150, aware: 0.97, stumble: 0.20 },
-  { id: 'horace',    skill: 0.975, aggr: 0.95, steer: 175, aware: 0.90, stumble: 0.55 },
-  { id: 'camille',   skill: 0.950, aggr: 0.20, steer: 145, aware: 0.88, stumble: 0.45 }
+  { id: 'tristan',   skill: 0.88, aggr: 0.40, steer: 185, aware: 0.92, stumble: 0.60 },
+  { id: 'maeva',     skill: 0.86, aggr: 0.10, steer: 165, aware: 0.94, stumble: 0.45 },
+  { id: 'callipyge', skill: 0.84, aggr: 0.00, steer: 150, aware: 0.95, stumble: 0.40 },
+  { id: 'horace',    skill: 0.82, aggr: 0.50, steer: 175, aware: 0.88, stumble: 0.65 },
+  { id: 'camille',   skill: 0.80, aggr: 0.15, steer: 145, aware: 0.86, stumble: 0.60 }
 ];
 const courseHash = (n) => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 const courseClamp = (v, a, b) => v < a ? a : (v > b ? b : v);
 // La route serpente (droite au départ et à l'arrivée) : centre et demi-largeur en fonction de l'avancée
 const courseAmp = (wy) => courseClamp(wy / 900, 0, 1) * courseClamp((COURSE.LEN + 250 - wy) / 800, 0, 1);
 const coursePathX = (wy) => 400 + (Math.sin(wy * 0.0021) * 125 + Math.sin(wy * 0.00067 + 1.3) * 75) * courseAmp(wy);
-const coursePathHW = (wy) => 104 + Math.sin(wy * 0.0031 + 0.7) * 8;
+const coursePathHW = (wy) => COURSE.ROAD_HW + Math.sin(wy * 0.0031 + 0.7) * 8;
 const courseOrdinal = (n) => n === 1 ? '1er' : n + 'ᵉ';
 
 /* ---------------------------------------------------------------
@@ -66,7 +74,7 @@ function courseBuildTrack() {
     } else {
       T.rocks.push({ wy, x: c + (courseHash(i * 4.7) * 2 - 1) * (hw - 36), v: i % 2 });
     }
-    wy += 300 + courseHash(i * 7.9) * 230;
+    wy += 380 + courseHash(i * 7.9) * 300;
   }
   // Flaques de boue
   for (let wy = 600, i = 0; wy < L - 500; i++) {
@@ -200,7 +208,7 @@ function courseInit(s, zone) {
   s.accum = 0;
   s.track = courseBuildTrack();
   // Grille de départ : 2 colonnes × 3 rangées ; Coco part au fond à gauche
-  const slots = [{ x: 366, wy: -30 }, { x: 434, wy: -30 }, { x: 366, wy: -90 }, { x: 434, wy: -90 }, { x: 434, wy: -150 }, { x: 366, wy: -150 }];
+  const slots = [{ x: 366, wy: -30 }, { x: 434, wy: -30 }, { x: 366, wy: -100 }, { x: 434, wy: -100 }, { x: 434, wy: -170 }, { x: 366, wy: -170 }];
   const order = [...COURSE_RIVALS];
   const R = [];
   const coco = PERSONNAGES.find(p => p.id === 'coco');
@@ -284,10 +292,27 @@ function courseAI(s, r) {
   return { vxT: courseClamp((tx - r.x) * 5, -cfg.steer, cfg.steer), gas: true, brake };
 }
 
+// --- Coup de pouce (téléphone) : un rocher pile devant ? le vélo est poussé doucement sur le côté (le joystick reste plus fort : on peut toujours foncer dessus) ---
+function courseRockAssist(s, r) {
+  if (!COURSE.ASSIST) return 0;
+  let bias = 0, best = 1e9;
+  for (const k of s.track.rocks) {
+    const dy = k.wy - r.wy;
+    if (dy < -12 || dy > 170 || dy >= best) continue;
+    const dx = r.x - k.x;
+    if (Math.abs(dx) > 34) continue;
+    // du côté où il y a le plus de place (et si on est pile dessus : vers le centre de la route)
+    let dir = Math.sign(dx) || (coursePathX(k.wy) > k.x ? 1 : -1);
+    if (Math.abs(dx) < 6) dir = coursePathX(k.wy) > k.x ? 1 : -1;
+    best = dy; bias = dir * 150 * courseClamp(1.15 - dy / 190, 0.25, 1);
+  }
+  return bias;
+}
+
 // --- Physique commune (joueur + concurrents) ---
 function courseMove(s, r, dt, c) {
   let vmax = COURSE.VMAX * r.skill;
-  if (!r.isPlayer && !r.finished) vmax *= 1 + courseClamp((s.player.wy - r.wy) / 2500, -0.03, 0.05);   // léger élastique : la course reste serrée
+  if (!r.isPlayer && !r.finished) vmax *= 1 + courseClamp((s.player.wy - r.wy) / COURSE.ELASTIC_D, -COURSE.ELASTIC_MAX_AHEAD, COURSE.ELASTIC_MAX_BEHIND);   // élastique : un rival loin devant ralentit, un rival loin derrière accélère → la course reste serrée
   const road = coursePathX(r.wy), hw = coursePathHW(r.wy);
   r.onRoad = Math.abs(r.x - road) < hw - 3;
   let target, rate;
@@ -295,7 +320,7 @@ function courseMove(s, r, dt, c) {
   else {
     target = vmax * (r.finished ? 0.5 : (c.gas ? 1 : 0.78));
     if (c.brake) target *= 0.45;
-    if (!r.onRoad) target *= 0.55;
+    if (!r.onRoad) target *= COURSE.GRASS_SLOW;
     if (r.mudT > 0) target *= 0.55;
     if (r.boostT > 0) target *= 1.45;
     if (r.draft) target *= 1.10;
@@ -348,7 +373,7 @@ function courseStep(s, dt) {
         const k = s.keys;
         const steer = ((k['arrowright'] || k['d']) ? 1 : 0) - ((k['arrowleft'] || k['q'] || k['a']) ? 1 : 0);
         // Sur téléphone, le joystick ne donne qu'UNE direction à la fois (on ne peut pas tourner ET pédaler) : on pédale donc tout seul.
-        c = { vxT: steer * 255, gas: s.autoGas || !!(k['arrowup'] || k['z'] || k['w']), brake: !!(k['arrowdown'] || k['s']) };
+        c = { vxT: steer * 255 + (s.autoGas ? courseRockAssist(s, r) : 0), gas: s.autoGas || !!(k['arrowup'] || k['z'] || k['w']), brake: !!(k['arrowdown'] || k['s']) };
       }
     } else if (r.finished) c = { vxT: courseClamp((coursePathX(r.wy) - r.x) * 3, -100, 100), gas: false, brake: false };
     else if (s.raceT < r.goDelay) c = { vxT: 0, gas: false, brake: true };
@@ -358,15 +383,15 @@ function courseStep(s, dt) {
   // Collisions coureur ↔ coureur
   for (let i = 0; i < R.length; i++) for (let j = i + 1; j < R.length; j++) {
     const a = R[i], b = R[j];
-    if (a.state === 'fall' || b.state === 'fall' || a.finished || b.finished || a.inv > 0 || b.inv > 0) continue;
+    if (a.state === 'fall' || b.state === 'fall' || a.finished || b.finished || a.inv > 0 || b.inv > 0 || s.raceT < COURSE.GRACE_T) continue;
     const dx = b.x - a.x, dy = b.wy - a.wy;
     if (Math.abs(dx) < 21 && Math.abs(dy) < 36) {
       if (a.isPlayer || b.isPlayer) {
         // Qui est fautif ? Celui qui rentre dans le dos de l'autre tombe ; côte à côte, c'est une bousculade.
         const me = a.isPlayer ? a : b, other = a.isPlayer ? b : a, ahead = other.wy - me.wy, side = Math.sign(me.x - other.x) || 1;
-        if (ahead > 16) {                       // je lui rentre dedans : JE tombe
-          courseFall(s, me, side);
-          other.speed *= 0.7; other.wobble = 1; other.x -= side * 8;
+        if (ahead > 16) {                       // je lui rentre dedans : JE tombe (si je le percute vraiment fort) ; sinon simple bousculade, je m'aligne sur sa vitesse
+          if (me.speed - other.speed > COURSE.HIT_FALL_V) { courseFall(s, me, side); other.speed *= 0.7; other.wobble = 1; other.x -= side * 8; }
+          else if (me.bumpT <= 0) { me.speed = Math.min(me.speed, other.speed * 0.95); me.vx += side * 120; me.bumpT = other.bumpT = 0.4; me.wobble = other.wobble = 0.8; me.x += side * 5; other.x -= side * 3; if (me.isPlayer) { s.shake = Math.max(s.shake, 0.3); Snd.play('pop'); } }
         } else if (ahead < -16) {               // il me percute par derrière : c'est LUI qui tombe, moi je tiens (un peu secoué)
           courseFall(s, other, -side);
           me.speed *= 0.92; me.wobble = 0.8;
@@ -387,7 +412,14 @@ function courseStep(s, dt) {
     // Rochers : chute
     for (const k of T.rocks) {
       if (k.wy < r.wy - 40 || k.wy > r.wy + 40) continue;
-      if (Math.abs(k.x - r.x) < 22 && Math.abs(k.wy - r.wy) < 24) courseFall(s, r, Math.sign(r.x - k.x));
+      const dx = r.x - k.x;
+      if (Math.abs(dx) < COURSE.ROCK_X && Math.abs(k.wy - r.wy) < COURSE.ROCK_Y) {
+        if (Math.abs(dx) < COURSE.ROCK_CORE) courseFall(s, r, Math.sign(dx));
+        else if (r.inv <= 0 && r.bumpT <= 0) {   // effleurement : on est repoussé sur le côté et on ralentit, sans tomber
+          r.vx += Math.sign(dx) * 200; r.speed *= 0.78; r.bumpT = 0.35; r.wobble = 1;
+          if (r.isPlayer) { s.shake = Math.max(s.shake, 0.3); Snd.play('pop'); }
+        }
+      }
     }
     // Boue : ralentit
     for (const m of T.muds) {

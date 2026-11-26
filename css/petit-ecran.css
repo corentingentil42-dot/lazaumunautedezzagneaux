@@ -105,6 +105,6 @@
   padding: 6px 10px; align-items: flex-start; pointer-events: none;
 }
 #miniGameContainer.mg-wide #mgHeader > div:first-child { position: relative; z-index: 4; max-width: var(--mg-marge, 100px); }
-#miniGameContainer.mg-wide #mgTitle { font-size: 13px; line-height: 1.25; text-shadow: 0 1px 3px #000; }
+#miniGameContainer.mg-wide #mgTitle { font-size: clamp(13px, calc(2.4 * var(--vh, 1vh)), 20px); line-height: 1.25; text-shadow: 0 1px 3px #000; }
 #miniGameContainer.mg-wide #mgStats { display: none; }
 #miniGameContainer.mg-wide #mgCloseBtn { position: relative; z-index: 60; pointer-events: auto; background: rgba(13,17,23,0.75); }
