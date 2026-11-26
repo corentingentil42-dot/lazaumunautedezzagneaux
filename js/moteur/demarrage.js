@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* ============ INITIALISATION ============ */
-const GAME_VERSION = 'v20.29';
+const GAME_VERSION = 'v20.30';
 // Diagnostic (touche D) : teste en direct les fichiers de Coco pour voir
 // ce qui se charge et ce qui manque, et affiche d'où le jeu est ouvert.
 function runDiagnostics() {
@@ -89,4 +89,5 @@ function checkAssetsPresence() {
   document.getElementById('btnTitleStart').addEventListener('click', () => startGame(false));
   document.getElementById('btnTitleNew').addEventListener('click', newGameFromTitle);
   // Écran-titre : simple dégradé (css/titre.css), rien à dessiner tant qu'on n'a pas lancé la partie.
+  lancerVeilleMiseAJour();   // (js/moteur/verif-version.js) : recharge tout seul si une version plus récente est en ligne
 })();

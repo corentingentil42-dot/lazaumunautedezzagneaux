@@ -69,3 +69,10 @@
 body.touch.fs-ok:not(.fs):not(.app-mode) #fsHint { display: block; }
 body.ios-browser:not(.app-mode) #iosHint { display: block; }
 body.ios-browser #fsHint { display: none; }
+
+/* Bouton discret « Chercher une mise à jour » (js/moteur/verif-version.js) */
+#titleScreen #btnMaj {
+  background: transparent; color: #9db3a8; border: 0; padding: 4px 10px; margin-top: 4px;
+  font-size: 11px; font-weight: normal; text-decoration: underline dotted; text-underline-offset: 2px;
+}
+#titleScreen #btnMaj:hover { background: transparent; color: #cfe8d9; }

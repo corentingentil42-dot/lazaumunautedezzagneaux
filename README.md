@@ -99,6 +99,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 | `js/moteur/interaction.js` | Touche E : parler à un perso, entrer dans une zone, allumer le Grand Feu (vraie fin). |
 | `js/moteur/mise-a-jour.js` | update() : déplacement du joueur, collisions, PNJ, détection de ce qui est à portée, HUD. |
 | `js/moteur/boucle.js` | Boucle principale du jeu (requestAnimationFrame). |
+| `js/moteur/verif-version.js` | Détecte qu'une nouvelle version est en ligne (le téléphone garde parfois l'ancienne) et recharge : seul sur l'écran-titre, bandeau « Mettre à jour » en partie, bouton 🔄 sur le titre. |
 | `js/moteur/demarrage.js` | Démarrage : version du jeu, diagnostic des images (touche D), init() et écran-titre (simple dégradé, voir css/titre.css). Chargé EN DERNIER. |
 
 #### Interface
