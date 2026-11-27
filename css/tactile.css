@@ -3,19 +3,27 @@
    ============================================================ */
 
   /* Tailles des commandes : elles suivent la hauteur visible (--vh, mesurée par ecran.js) et évitent l'encoche (zones de sécurité). */
-  /* v20.32 : tout est nettement plus gros (joystick 140 -> 200 px, E 84 -> 122, R/M/J 46 -> 68 sur une fenêtre de 720 px de haut).
-     --ui-h / --ui-fs = hauteur et texte des boutons « normaux » (Quitter, Passer, Continuer, Lancer, réponses…), voir la fin du fichier. */
+  /* v20.33 : encore beaucoup plus gros. Repère : une phalange de pouce ≈ 9-10 mm, et un téléphone en paysage fait ~ 65-70 mm de haut,
+     donc un bouton confortable = ~ 13 % de la hauteur de l'écran et un texte de jeu lisible = ~ 4 % (Apple : cible tactile ≥ 44 pt, Android : ≥ 48 dp).
+     Sur une fenêtre de 720 px de haut : joystick 200 -> 290 px, E 122 -> 170, R/M/J/📋 68 -> 100, touches de rythme 96 -> 104.
+     --ui-h / --ui-fs = hauteur et texte des boutons « normaux » (Quitter, Passer, Continuer, Lancer, réponses…), voir la fin du fichier.
+     --dlg-* = tailles de la boîte de dialogue ; --hud-fs = texte du HUD (nom, « À faire »). */
   body.touch {
-    --pad: clamp(116px, calc(46 * var(--vh, 1vh)), 200px);
-    --bigbtn: clamp(76px, calc(28 * var(--vh, 1vh)), 122px);
-    --smallbtn: clamp(50px, calc(15 * var(--vh, 1vh)), 68px);
-    --rhbtn: clamp(60px, calc(13.5 * var(--vh, 1vh)), 96px);
-    --ui-h: clamp(44px, calc(8.4 * var(--vh, 1vh)), 60px);
-    --ui-fs: clamp(14px, calc(2.4 * var(--vh, 1vh)), 19px);
+    --pad: clamp(130px, calc(54 * var(--vh, 1vh)), 290px);
+    --bigbtn: clamp(90px, calc(31 * var(--vh, 1vh)), 170px);
+    --smallbtn: clamp(58px, calc(17 * var(--vh, 1vh)), 100px);
+    --rhbtn: clamp(66px, calc(14.4 * var(--vh, 1vh)), 104px);
+    --ui-h: clamp(50px, calc(10 * var(--vh, 1vh)), 76px);
+    --ui-fs: clamp(16px, calc(3 * var(--vh, 1vh)), 24px);
+    --dlg-fs: clamp(16px, calc(4.1 * var(--vh, 1vh)), 32px);
+    --dlg-name: clamp(15px, calc(3.8 * var(--vh, 1vh)), 30px);
+    --dlg-hint: clamp(12px, calc(2.7 * var(--vh, 1vh)), 21px);
+    --dlg-portrait: clamp(60px, calc(15 * var(--vh, 1vh)), 120px);
+    --hud-fs: clamp(11px, calc(2.6 * var(--vh, 1vh)), 20px);
     --edge-l: max(14px, env(safe-area-inset-left, 0px));
     --edge-r: max(14px, env(safe-area-inset-right, 0px));
     --edge-b: max(10px, calc(4 * var(--vh, 1vh)), env(safe-area-inset-bottom, 0px));
-    --mm-w: 104px;           /* largeur de la mini-carte en mode tactile */
+    --mm-w: clamp(104px, calc(18 * var(--vh, 1vh)), 140px);   /* largeur de la mini-carte en mode tactile */
   }
   #touchUI { display: none; position: absolute; inset: 0; z-index: 30; pointer-events: none; }
   body.touch #touchUI { display: block; }
@@ -49,7 +57,9 @@
     position: absolute; left: 50%; bottom: max(6px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
     display: none; gap: 16px; pointer-events: none;
   }
-  .tb.rh { width: var(--rhbtn, 70px); height: var(--rhbtn, 70px); font-size: calc(var(--rhbtn, 70px) * 0.34); }
+  /* Touches du rythme grosses mais translucides : on voit les notes passer derrière, juste avant la ligne de réussite */
+  .tb.rh { width: var(--rhbtn, 70px); height: var(--rhbtn, 70px); font-size: calc(var(--rhbtn, 70px) * 0.34); background: rgba(27,39,53,0.5); }
+  .tb.rh:active { background: rgba(255,215,107,0.55); }
   body.t-hub #touchPad, body.t-hub #touchBtns,
   body.t-arrows #touchPad, body.t-jump #touchBtns { display: block; }
   body.t-hub #touchBtns, body.t-jump #touchBtns { display: flex; }
@@ -72,13 +82,13 @@
   .hintTouch { display: none; }
   body.touch .hintKb { display: none; }
   body.touch .hintTouch { display: inline; }
-  body.touch #hud { top: 8px; left: var(--edge-l); font-size: 11px; padding: 4px 9px; }
+  body.touch #hud { top: 8px; left: var(--edge-l); font-size: var(--hud-fs); line-height: 1.2; padding: 0.3em 0.7em; }
   body.touch #todoPanel {
-    top: 38px; left: var(--edge-l); width: min(210px, 32vw); font-size: 10.5px;
-    max-height: calc(100 * var(--vh, 1vh) - var(--pad) - var(--edge-b) - 50px); overflow-y: auto;
+    top: calc(8px + var(--hud-fs) * 1.8 + 6px); left: var(--edge-l); width: min(clamp(210px, calc(46 * var(--vh, 1vh)), 360px), 36vw); font-size: calc(var(--hud-fs) * 0.95);
+    max-height: calc(100 * var(--vh, 1vh) - var(--pad) - var(--edge-b) - var(--hud-fs) * 1.8 - 24px); overflow-y: auto;
   }
-  body.touch #todoHead { padding: 4px 9px; }
-  body.touch #todoList { padding: 0 9px 6px; }
+  body.touch #todoHead { padding: 0.35em 0.7em; }
+  body.touch #todoList { padding: 0 0.7em 0.5em; }
   /* La mini-carte passe en haut à droite (en bas à droite, elle était cachée sous les boutons R M J E) */
   body.touch #miniMap { top: 8px; bottom: auto; right: var(--edge-r); padding: 3px; border-width: 2px; }
   body.touch #miniMapCanvas { width: calc(var(--mm-w) - 12px); height: auto; }
@@ -88,22 +98,29 @@
   body.touch.t-hub #sysBtns, body.touch.t-dialogue #sysBtns { display: flex; }
   body:not(.fs-ok) #btnFullscreen, body.app-mode #btnFullscreen { display: none; }
   .sysb {
-    width: calc(var(--smallbtn, 44px) * 0.85); height: calc(var(--smallbtn, 44px) * 0.85); border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78);
-    color: #ffd76b; font-size: calc(var(--smallbtn, 44px) * 0.4); line-height: 1; cursor: pointer; font-family: inherit; padding: 0;
+    width: calc(var(--smallbtn, 44px) * 0.95); height: calc(var(--smallbtn, 44px) * 0.95); border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78);
+    color: #ffd76b; font-size: calc(var(--smallbtn, 44px) * 0.42); line-height: 1; cursor: pointer; font-family: inherit; padding: 0;
   }
   .sysb:active, body.fs #btnFullscreen { background: rgba(255,215,107,0.4); }
-  /* Dialogue : la boîte laisse la place du gros bouton ▶ à droite, et elle est plus compacte */
+  /* Dialogue (v20.33) : GRANDE boîte, façon RPG sur téléphone (texte ≈ 4 % de la hauteur de l'écran, portrait ≈ 15 %).
+     Elle occupe toute la largeur disponible à gauche du gros bouton ▶ (centrée dans cet espace, 1120 px max). Avant : texte de 13 px, portrait de 48 px. */
   body.touch #dialogueBox {
-    bottom: var(--edge-b); padding: 8px 12px 6px; gap: 10px;
-    width: min(calc(100% - 2 * (var(--bigbtn) + var(--edge-r) + 10px)), 640px);
+    left: var(--edge-l); right: calc(var(--bigbtn) + var(--edge-r) + 14px); width: auto; max-width: 1120px; margin: 0 auto; transform: none;
+    bottom: var(--edge-b); padding: calc(2 * var(--vh, 1vh)) calc(2.6 * var(--vh, 1vh)); gap: calc(2.4 * var(--vh, 1vh)); border-radius: calc(1.8 * var(--vh, 1vh));
+    align-items: center;
   }
-  body.touch #dialogueName { font-size: 12px; margin-bottom: 2px; }
-  body.touch #dialogueText { font-size: 13px; line-height: 1.4; min-height: 0; }
-  body.touch #dialoguePortraitWrap { width: 48px; height: 48px; }
-  /* Grande image d'expression de Coco : en haut de l'écran, et jamais plus haute que la place au-dessus de la boîte */
+  body.touch #dialogueName { font-size: var(--dlg-name); margin-bottom: 0.15em; }
+  body.touch #dialogueText { font-size: var(--dlg-fs); line-height: 1.32; min-height: 0; }
+  /* Réplique longue (> 140 caractères, ~ 5 % des répliques) : texte un peu plus petit pour que la boîte ne mange pas l'écran */
+  body.touch #dialogueBox.longText #dialogueText { font-size: calc(var(--dlg-fs) * 0.84); line-height: 1.28; }
+  body.touch #dialogueHint { font-size: var(--dlg-hint); margin-top: 0.5em; min-height: 0; gap: 1em; }
+  body.touch #dialoguePortraitWrap { width: var(--dlg-portrait); height: var(--dlg-portrait); border-radius: calc(var(--dlg-portrait) * 0.12); }
+  /* Grande image d'expression de Coco : en haut de l'écran, et jamais plus haute que la place au-dessus de la (grande) boîte */
   body.touch #cutsceneImg {
     top: 3%; transform: translate(-50%, 0);
-    max-height: calc(100 * var(--vh, 1vh) - 150px); max-width: min(380px, 44vw);
+    /* 50 % de la hauteur au plus, et en dessous de la boîte estimée (padding + nom + ~3 lignes + rangée « Passer »), pour ne jamais la chevaucher */
+    max-height: min(calc(50 * var(--vh, 1vh)), calc(97 * var(--vh, 1vh) - var(--edge-b) - 24px - (4 * var(--vh, 1vh) + 1.3 * var(--dlg-name) + 3.3 * var(--dlg-fs) + 0.85 * var(--ui-h) + 0.5 * var(--dlg-hint) + 6px)));
+    max-width: min(380px, 44vw);
   }
   body.touch #cutsceneImg.pop { animation-name: cutscenePopTouch; }
   @keyframes cutscenePopTouch {
@@ -112,7 +129,7 @@
   }
   /* Tutoriel d'un mini-jeu sur téléphone : les pastilles de touches du clavier ne servent à rien, on gagne de la place */
   body.touch #tutorialOverlay .keys { display: none; }
-  body.touch #toast { top: 44px; font-size: 13px; padding: 7px 18px; }
+  body.touch #toast { top: calc(8px + var(--hud-fs) * 0.4); font-size: calc(var(--hud-fs) * 1.1); padding: 0.5em 1.3em; max-width: calc(100% - 2 * (var(--mm-w) + var(--smallbtn) * 2 + var(--edge-r) + 60px)); }
 
   /* ---------- Téléphone (v20.32) : tous les autres boutons plus gros, faciles à toucher du pouce ----------
      Les tailles viennent de --ui-h / --ui-fs (définis en haut, ils suivent la hauteur visible). `body.touch` (et pas une media query sur la

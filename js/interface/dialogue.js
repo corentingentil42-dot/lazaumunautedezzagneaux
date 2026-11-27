@@ -95,6 +95,12 @@ function showExprPortrait(line, persoId) {
     });
   }
 }
+// Affiche la réplique ; si elle est longue (> 140 caractères), la boîte prend la classe `longText` (texte un peu plus petit sur téléphone, voir css/tactile.css).
+function setDialogueText(text) {
+  const t = text == null ? '' : String(text);
+  document.getElementById('dialogueText').textContent = t;
+  document.getElementById('dialogueBox').classList.toggle('longText', t.length > 140);
+}
 function openDialogue(name, lines, onClose, persoId) {
   gameState = 'dialogue';
   currentDialogue = { name, lines, persoId };
@@ -105,7 +111,7 @@ function openDialogue(name, lines, onClose, persoId) {
   // → le nom affiché et le portrait suivent le locuteur de la ligne.
   const firstLine = dialogueLine(lines[0]);
   document.getElementById('dialogueName').textContent = firstLine.who || name;
-  document.getElementById('dialogueText').textContent = firstLine.text;
+  setDialogueText(firstLine.text);
   document.getElementById('interactPrompt').style.display = 'none';
   showExprPortrait(firstLine, firstLine.whoId || persoId);
   Snd.play('open');
@@ -117,7 +123,7 @@ function advanceDialogue() {
   if (dialogueIndex < currentDialogue.lines.length) {
     const line = dialogueLine(currentDialogue.lines[dialogueIndex]);
     if (line.who) document.getElementById('dialogueName').textContent = line.who;
-    document.getElementById('dialogueText').textContent = line.text;
+    setDialogueText(line.text);
     showExprPortrait(line, line.whoId || currentDialogue.persoId);
   } else closeDialogue();
 }
