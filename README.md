@@ -19,7 +19,8 @@ Jeu en pixel art (HTML5 canvas) sur la bande : on se balade sur la place, on rec
 | Les **suspects**, témoignages, indices de l'enquête | `js/enquete/donnees.js` |
 | L'affichage du journal d'enquête (touche J) | `js/enquete/journal.js` |
 | Les **sons** (tous générés par le code) | `js/moteur/son.js` |
-| Le **zoom** du hub (×2,4) et la **vitesse** du joueur | `js/moteur/monde.js` (`HUB_ZOOM`, `player.speed`) |
+| Le **zoom** du hub (ordinateur ×2,4 / téléphone ×1,6) et la **vitesse** du joueur | `js/moteur/monde.js` (`HUB_ZOOM_PC`, `HUB_ZOOM_TOUCH`, `player.speed`) |
+| La **taille** du joystick et de tous les boutons sur téléphone | `css/tactile.css` (variables `--pad`, `--bigbtn`, `--smallbtn`, `--rhbtn`, `--ui-h`, `--ui-fs` en haut du fichier) |
 | Les **rochers solides** / collisions du hub | `js/moteur/mise-a-jour.js` (`rockHit`) |
 | La **course de Coco** : concurrents, difficulté, circuit | `js/minijeux/coco-course.js` (`COURSE`, `COURSE_RIVALS`) |
 | La **sauvegarde** | `js/moteur/sauvegarde.js` |

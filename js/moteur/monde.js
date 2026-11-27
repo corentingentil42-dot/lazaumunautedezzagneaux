@@ -11,21 +11,27 @@ ctx.imageSmoothingEnabled = false;
 let VIEW_W = 640;
 const VIEW_H = 480;
 // Zoom de la caméra du hub (promenade sur la carte) : 2.4 = tout est affiché 240 % plus gros.
-// Pour changer le zoom, c'est CETTE ligne. (Les mini-jeux ne sont pas concernés.)
-const HUB_ZOOM = 2.4;
+// Pour changer le zoom, c'est CES DEUX lignes : HUB_ZOOM_PC (ordinateur) et HUB_ZOOM_TOUCH (téléphone / tablette, v20.32 : vue plus large,
+// on voit plus de décor autour de Coco). HUB_ZOOM est la valeur en cours, choisie par fitView(). (Les mini-jeux ne sont pas concernés.)
+const HUB_ZOOM_PC = 2.4;
+const HUB_ZOOM_TOUCH = 1.6;
+let HUB_ZOOM = HUB_ZOOM_PC;
 let SEE_W = VIEW_W / HUB_ZOOM, SEE_H = VIEW_H / HUB_ZOOM;   // ce que la caméra voit du monde, en pixels du monde
 // Format de la vue : 4:3 partout, SAUF sur téléphone/tablette (body.touch) où le canevas épouse l'écran (de 4:3 jusqu'à 2,4:1 maximum ;
 // au-delà on garde des petites barres sur les côtés plutôt que d'étirer le monde). Appelée par ecran.js à chaque changement de taille.
 const VIEW_ASPECT_MAX = 2.4;
 function fitView() {
   let aspect = 4 / 3;
-  if (document.body.classList.contains('touch') && window.innerHeight > 0) {
+  const touch = document.body.classList.contains('touch');
+  if (touch && window.innerHeight > 0) {
     aspect = Math.max(4 / 3, Math.min(VIEW_ASPECT_MAX, window.innerWidth / window.innerHeight));
   }
   const w = Math.round(VIEW_H * aspect / 2) * 2;
   document.documentElement.style.setProperty('--view-aspect', String(w / VIEW_H));
-  if (w === VIEW_W) return;
-  VIEW_W = w; SEE_W = VIEW_W / HUB_ZOOM;
+  const zoom = touch ? HUB_ZOOM_TOUCH : HUB_ZOOM_PC;
+  if (w === VIEW_W && zoom === HUB_ZOOM) return;
+  HUB_ZOOM = zoom;
+  VIEW_W = w; SEE_W = VIEW_W / HUB_ZOOM; SEE_H = VIEW_H / HUB_ZOOM;
   canvas.width = VIEW_W;               // (redimensionner un canevas remet son contexte à zéro)
   ctx.imageSmoothingEnabled = false;
 }

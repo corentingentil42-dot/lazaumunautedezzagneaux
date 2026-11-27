@@ -3,10 +3,15 @@
    ============================================================ */
 
   /* Tailles des commandes : elles suivent la hauteur visible (--vh, mesurée par ecran.js) et évitent l'encoche (zones de sécurité). */
+  /* v20.32 : tout est nettement plus gros (joystick 140 -> 200 px, E 84 -> 122, R/M/J 46 -> 68 sur une fenêtre de 720 px de haut).
+     --ui-h / --ui-fs = hauteur et texte des boutons « normaux » (Quitter, Passer, Continuer, Lancer, réponses…), voir la fin du fichier. */
   body.touch {
-    --pad: clamp(96px, calc(38 * var(--vh, 1vh)), 140px);
-    --bigbtn: clamp(60px, calc(23 * var(--vh, 1vh)), 84px);
-    --smallbtn: clamp(38px, calc(12 * var(--vh, 1vh)), 46px);
+    --pad: clamp(116px, calc(46 * var(--vh, 1vh)), 200px);
+    --bigbtn: clamp(76px, calc(28 * var(--vh, 1vh)), 122px);
+    --smallbtn: clamp(50px, calc(15 * var(--vh, 1vh)), 68px);
+    --rhbtn: clamp(60px, calc(13.5 * var(--vh, 1vh)), 96px);
+    --ui-h: clamp(44px, calc(8.4 * var(--vh, 1vh)), 60px);
+    --ui-fs: clamp(14px, calc(2.4 * var(--vh, 1vh)), 19px);
     --edge-l: max(14px, env(safe-area-inset-left, 0px));
     --edge-r: max(14px, env(safe-area-inset-right, 0px));
     --edge-b: max(10px, calc(4 * var(--vh, 1vh)), env(safe-area-inset-bottom, 0px));
@@ -28,9 +33,9 @@
   }
   #touchBtns {
     position: absolute; right: var(--edge-r, 18px); bottom: var(--edge-b, 22px); display: none; flex-direction: column;
-    align-items: flex-end; gap: 8px; pointer-events: none;
+    align-items: flex-end; gap: 10px; pointer-events: none;
   }
-  .tRow { display: flex; gap: 8px; }
+  .tRow { display: flex; gap: 10px; }
   .tb {
     pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none;
     border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78); color: #ffd76b;
@@ -39,11 +44,12 @@
   .tb:active { background: rgba(255,215,107,0.5); color: #1b2735; }
   .tb.small { width: var(--smallbtn, 44px); height: var(--smallbtn, 44px); font-size: calc(var(--smallbtn, 44px) * 0.32); }
   .tb.big { width: var(--bigbtn, 82px); height: var(--bigbtn, 82px); font-size: calc(var(--bigbtn, 82px) * 0.32); background: rgba(255,215,107,0.88); color: #1b2735; }
+  /* Touches du rythme : collées en bas (6 px) pour ne pas cacher la ligne de réussite du jeu (à ~84 % de la hauteur) */
   #touchRhythm {
-    position: absolute; left: 50%; bottom: var(--edge-b, 20px); transform: translateX(-50%);
-    display: none; gap: 14px; pointer-events: none;
+    position: absolute; left: 50%; bottom: max(6px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+    display: none; gap: 16px; pointer-events: none;
   }
-  .tb.rh { width: calc(var(--bigbtn, 70px) * 0.9); height: calc(var(--bigbtn, 70px) * 0.9); font-size: 22px; }
+  .tb.rh { width: var(--rhbtn, 70px); height: var(--rhbtn, 70px); font-size: calc(var(--rhbtn, 70px) * 0.34); }
   body.t-hub #touchPad, body.t-hub #touchBtns,
   body.t-arrows #touchPad, body.t-jump #touchBtns { display: block; }
   body.t-hub #touchBtns, body.t-jump #touchBtns { display: flex; }
@@ -82,8 +88,8 @@
   body.touch.t-hub #sysBtns, body.touch.t-dialogue #sysBtns { display: flex; }
   body:not(.fs-ok) #btnFullscreen, body.app-mode #btnFullscreen { display: none; }
   .sysb {
-    width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78);
-    color: #ffd76b; font-size: 17px; line-height: 1; cursor: pointer; font-family: inherit; padding: 0;
+    width: calc(var(--smallbtn, 44px) * 0.85); height: calc(var(--smallbtn, 44px) * 0.85); border-radius: 50%; border: 2px solid #ffd76b; background: rgba(27,39,53,0.78);
+    color: #ffd76b; font-size: calc(var(--smallbtn, 44px) * 0.4); line-height: 1; cursor: pointer; font-family: inherit; padding: 0;
   }
   .sysb:active, body.fs #btnFullscreen { background: rgba(255,215,107,0.4); }
   /* Dialogue : la boîte laisse la place du gros bouton ▶ à droite, et elle est plus compacte */
@@ -107,3 +113,43 @@
   /* Tutoriel d'un mini-jeu sur téléphone : les pastilles de touches du clavier ne servent à rien, on gagne de la place */
   body.touch #tutorialOverlay .keys { display: none; }
   body.touch #toast { top: 44px; font-size: 13px; padding: 7px 18px; }
+
+  /* ---------- Téléphone (v20.32) : tous les autres boutons plus gros, faciles à toucher du pouce ----------
+     Les tailles viennent de --ui-h / --ui-fs (définis en haut, ils suivent la hauteur visible). `body.touch` (et pas une media query sur la
+     hauteur) : le navigateur de Coco annonce ~1560×720 px, les règles « petit écran » (≤ 460 px) ne s'y appliquaient pas. */
+  body.touch #mgCloseBtn,
+  body.touch #dialogueSkip,
+  body.touch #mgMessage button,
+  body.touch #tutorialOverlay button,
+  body.touch #zoneOverlay button,
+  body.touch #endScreen button,
+  body.touch #titleScreen button:not(#btnMaj) {
+    min-height: var(--ui-h); padding: 0 calc(var(--ui-h) * 0.6); font-size: var(--ui-fs); line-height: 1.1;
+  }
+  body.touch #dialogueSkip { min-height: calc(var(--ui-h) * 0.85); padding: 0 calc(var(--ui-h) * 0.5); border-radius: 999px; }
+  body.touch #mgCloseBtn { padding: 0 calc(var(--ui-h) * 0.45); }
+  /* Boutons de réponse / cartes des mini-jeux « texte » */
+  body.touch .mgBtn, body.touch .meme-option, body.touch .enigmaOption { min-height: calc(var(--ui-h) * 0.9); font-size: var(--ui-fs); }
+  body.touch .mgCard { min-height: calc(var(--ui-h) * 0.9); font-size: calc(var(--ui-fs) * 0.9); }
+  /* Croix de fermeture des panneaux (équipe, dossier d'enquête) */
+  body.touch #btnCloseTeam, body.touch #btnCaseClose {
+    width: calc(var(--ui-h) * 0.9); height: calc(var(--ui-h) * 0.9); font-size: calc(var(--ui-h) * 0.38);
+  }
+  /* « Chercher une mise à jour » (écran-titre) : toujours discret, mais assez haut pour le pouce */
+  body.touch #titleScreen #btnMaj {
+    min-height: max(40px, calc(var(--ui-h) * 0.8)); padding: 0 calc(var(--ui-h) * 0.5); font-size: calc(var(--ui-fs) * 0.85);
+  }
+  /* Mini-jeux à flèches : le joystick (grand) ne doit pas mordre sur le jeu quand il y a de la place à gauche.
+     Les jeux « canvas » sont en 8:5 : la marge de gauche = (largeur - hauteur × 1,6) / 2. On réduit le joystick juste assez pour y tenir,
+     sans jamais descendre sous 78 % de sa taille normale (écrans très étroits : il recouvre alors un peu le jeu, comme avant). */
+  body.t-arrows #touchPad {
+    --pad-mg: min(var(--pad), max(calc(var(--pad) * 0.78), calc((var(--app-w) - var(--app-h) * 1.6) / 2 - var(--edge-l) - 4px)));
+    width: var(--pad-mg); height: var(--pad-mg);
+  }
+  /* Endurance (bouton de saut ⤒ à droite) : même principe, pour qu'il ne mange pas le bord droit du jeu */
+  body.t-jump #touchMain {
+    --big-mg: min(var(--bigbtn), max(calc(var(--bigbtn) * 0.78), calc((var(--app-w) - var(--app-h) * 1.6) / 2 - var(--edge-r) - 4px)));
+    width: var(--big-mg); height: var(--big-mg);
+  }
+  /* Quiz de Magir (mini-jeu « texte ») : l'image était trop haute pour une fenêtre de ~720 px (la 3e et la 4e réponse sortaient de l'écran) */
+  body.touch .meme-img-wrap, body.touch .meme-img-wrap img { max-height: calc(28 * var(--vh, 1vh)); }
