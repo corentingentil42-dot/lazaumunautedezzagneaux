@@ -83,7 +83,6 @@ const STAR_RULES = {
   rythme:    { goals: ['40 notes réussies', '55 notes réussies'], calc: s => starsByMin(s.hits, 40, 55), detail: s => 'Notes réussies : ' + s.hits + ' / ' + s.notes.length },
   charme:    { goals: ['2 jauges sur 3 remplies à 100 %', 'Les 3 jauges remplies à 100 %'], calc: s => Math.max(1, Math.min(3, s.filled)), detail: s => 'Jauges pleines : ' + s.filled + ' / ' + CHARME_PERSONNES.length },
   basket:    { goals: ['1 ballon raté au maximum', 'Aucun ballon raté'], calc: s => { const e = BASKET_LIVES - s.lives; return e <= 0 ? 3 : (e === 1 ? 2 : 1); }, detail: s => 'Ballons ratés : ' + (BASKET_LIVES - s.lives) },
-  duel:      { goals: ['4 erreurs au maximum', '2 erreurs au maximum'], calc: s => { const e = DUEL_LIVES - s.lives; return e <= 2 ? 3 : (e <= 4 ? 2 : 1); }, detail: s => 'Duel : ' + errTxt(DUEL_LIVES - s.lives) },
   esquive:   bonusRule('qui flotte dans l\'arène'),
   moto:      bonusRule('posée sur la route'),
   endurance: bonusRule('au-dessus des obstacles'),

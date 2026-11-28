@@ -17,7 +17,7 @@ function pressKey(key, down) {
 }
 // Quel jeu de boutons afficher ? (cache : on ne touche au DOM que si ça change)
 const elTutoOverlay = document.getElementById('tutorialOverlay');
-const TOUCH_ARROWS = new Set(['course', 'moto', 'volley', 'collecte', 'esquive', 'duel']);
+const TOUCH_ARROWS = new Set(['course', 'moto', 'volley', 'collecte', 'esquive']);
 function touchModeNow() {
   if (gameState === 'playing') return 'hub';
   if (gameState === 'dialogue') return 'dialogue';

@@ -71,7 +71,7 @@ const MEME_QUIZ_QUESTIONS = [
   {
     id: 'q6',
     q: "Quel est le bon couple de plan cul ?",
-    options: ["Perline-Callipyge", "Naomi-Elaïs", "Noah-Magir", "Horace-Camille"],
+    options: ["Perline-Callipyge", "Naomi-Elaïs", "Noah-Magir"],
     correct: 0
   },
   {

@@ -105,7 +105,6 @@ function launchMiniGame(zone, opts) {
     esquive: { title: "🍋 Fuir les Agrumes", lines: ["Bouge pour éviter les citrons.", "Une large bande jaune clignotante traverse l'écran : elle montre le couloir EXACT du prochain citron, à sa taille. Sors de la bande !", "Survis 30 secondes !"], keys: ["← ↑ → ↓ Déplacement"] },
     basket: { title: "🏀 Le Concours de Tirs", lines: ["Maintiens la balle et tire vers l'ARRIÈRE, comme une fronde.", "Relâche pour tirer : la trajectoire s'affiche en pointillés pendant que tu vises.", "Le panier change de côté à chaque réussite — un coup à gauche, un coup à droite !", "10 paniers pour gagner, et seulement 3 ballons : chaque tir raté t'en coûte un."], keys: ["Glisser + relâcher"] },
     rythme: { title: "🎻 Le Concert Improvisé", lines: ["Appuie sur A, S, D, F quand la note atteint la zone, en suivant la valse de Shostakovitch !", "30 notes réussies pour faire danser tout le parquet !"], keys: ["A S D F"] },
-    duel: { title: "⚔️ Le Duel au Katana", lines: ["Le maître télégraphie une attaque, puis une flèche s'affiche.", "Appuie sur LA MÊME flèche avant la fin de l'anneau doré pour parer et contre-attaquer.", "Mauvaise touche ou trop lent = une vie en moins (tu en as 6).", "La fenêtre se resserre au fil des touches — 20 touches pour gagner, un vrai duel qui dure !"], keys: ["← ↑ → ↓ Parer dans le bon sens"] },
     avis: { title: "⚽ L'Avis de la Honte", lines: ["Choisis l'avis le plus ABSURDE avec 1, 2, 3 ou clic.", "5 avis de la honte, 5 secondes chacun !", "Tu as 3 vies : chaque erreur en coûte une. À zéro, c'est la honte totale."], keys: ["1 2 3 Choix"] },
     meme: { title: "🎭 Le Meme Parfait", lines: ["Un quiz sur les private jokes du groupe !", "Une mauvaise réponse se grise : il faut retrouver la bonne pour passer à la question suivante.", "3 erreurs au total sur tout le quiz font perdre.", "10 questions à réussir pour gagner !"], keys: ["Clic sur une réponse"] },
     enigmes: { title: "📚 L'Énigme du Sarcasme", lines: ["Emma te pose 10 énigmes, 25 secondes chacune.", "Réponds avec 1, 2, 3, 4 ou la souris.", "Tu as 3 vies : chaque erreur en coûte une. À zéro, son regard méprisant te suivra à vie."], keys: ["1 2 3 4 Répondre"] },
@@ -186,7 +185,7 @@ function mgSuccess(zone) {
   bandeCompleteToast = bandeCompleteToast || complete;
   document.getElementById('mgMsgTitle').textContent = complete ? '🏆 LA BANDE AU COMPLET !' : (firstTime ? '🎉 Bravo !' : '✅ Réussi !');
   document.getElementById('mgMsgText').textContent = complete
-    ? `Incroyable : ${zone.surnom} était le dernier. Seize versions, enfin réunies. Reste à recouper les indices pour refermer le dossier... 🔎`
+    ? `Incroyable : ${zone.surnom} était le dernier. Quinze versions, enfin réunies. Reste à recouper les indices pour refermer le dossier... 🔎`
     : (tutoCourse && firstTime
       ? 'Tuto réussi haut la main ! Coco fait officiellement partie de la Z\'aumunauté — c\'est toi, en fait. 😎'
       : (firstTime
@@ -275,7 +274,7 @@ document.getElementById('mgMsgBtn').addEventListener('click', () => {
     openDialogue(p.surnom, CASE_TEMOIGNAGES[tid].lines, () => {
       if (bandeCompleteToast) {
         bandeCompleteToast = false;
-        showToast('🔎 Seize versions réunies ! Mais l\'affaire reste ouverte : retourne voir Noah, M.M., Lawisse et Magir (E) !');
+        showToast('🔎 Quinze versions réunies ! Mais l\'affaire reste ouverte : retourne voir Noah, M.M., Lawisse et Magir (E) !');
       } else {
         showToast('📎 Témoignage de ' + p.surnom + ' versé au dossier — ' + caseSuspectsRestants() + ' suspects restants (J)');
       }
@@ -283,7 +282,7 @@ document.getElementById('mgMsgBtn').addEventListener('click', () => {
     return;
   }
 });
-// Écran de fin : liste des 16 potes recrutés + retour au hub en un clic
+// Écran de fin : liste des potes recrutés + retour au hub en un clic
 function showEndScreen() {
   document.getElementById('endCredits').textContent =
     PERSONNAGES.map(p => `${p.emoji} ${p.surnom}`).join('   •   ');
@@ -316,6 +315,6 @@ document.getElementById('mgCloseBtn').addEventListener('click', () => {
   }
 });
 
-/* Mini-jeux : COURSE, ESQUIVE, BASKET, ENIGMES, MODE, AVIS, MEME, BLAGUES, COLLECTE, ENDURANCE, VOLLEY, MOTO, RYTHME, CHARME, DUEL, COIFFURE */
+/* Mini-jeux : COURSE, ESQUIVE, BASKET, ENIGMES, MODE, AVIS, MEME, BLAGUES, COLLECTE, ENDURANCE, VOLLEY, MOTO, RYTHME, CHARME, COIFFURE */
 /* (Tout le code de jeu reste identique à ta version actuelle, je le tronque ici pour la lisibilité.
    Copie-colle les MINIGAMES de ton fichier original ici, ils sont compatibles.) */

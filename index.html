@@ -12,15 +12,15 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icones/icone-180.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐑%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/base.css?v=20.33">
-<link rel="stylesheet" href="css/titre.css?v=20.33">
-<link rel="stylesheet" href="css/ecrans.css?v=20.33">
-<link rel="stylesheet" href="css/dialogue.css?v=20.33">
-<link rel="stylesheet" href="css/hud.css?v=20.33">
-<link rel="stylesheet" href="css/panneaux.css?v=20.33">
-<link rel="stylesheet" href="css/minijeux.css?v=20.33">
-<link rel="stylesheet" href="css/petit-ecran.css?v=20.33">
-<link rel="stylesheet" href="css/tactile.css?v=20.33">
+<link rel="stylesheet" href="css/base.css?v=20.34">
+<link rel="stylesheet" href="css/titre.css?v=20.34">
+<link rel="stylesheet" href="css/ecrans.css?v=20.34">
+<link rel="stylesheet" href="css/dialogue.css?v=20.34">
+<link rel="stylesheet" href="css/hud.css?v=20.34">
+<link rel="stylesheet" href="css/panneaux.css?v=20.34">
+<link rel="stylesheet" href="css/minijeux.css?v=20.34">
+<link rel="stylesheet" href="css/petit-ecran.css?v=20.34">
+<link rel="stylesheet" href="css/tactile.css?v=20.34">
 </head>
 <body>
 
@@ -44,7 +44,7 @@
       </div>
       <p id="fsHint">⛶ Sur téléphone, le jeu passe en plein écran dès que tu touches « Commencer ».</p>
       <p id="iosHint">📱 iPhone : pour jouer en plein écran, touche <b>Partager</b> puis <b>« Sur l'écran d'accueil »</b>, et lance le jeu depuis cette icône.</p>
-      <div id="titleVersion">v20.33 · Appuie sur D (ou F2) pour le diagnostic des images</div>
+      <div id="titleVersion">v20.34 · Appuie sur D (ou F2) pour le diagnostic des images</div>
       <button id="btnMaj" type="button">🔄 Chercher une mise à jour</button>
     </div>
     <p id="saveNote">💾 Ta partie se sauvegarde toute seule, mais seulement dans <b>ce navigateur, sur cet appareil</b> : elle ne passe pas d'un téléphone à l'autre, et elle disparaît si tu vides les données du navigateur ou si tu joues en navigation privée. Sur iPhone, Safari peut aussi l'effacer après environ une semaine sans jouer.</p>
@@ -52,7 +52,7 @@
 
   <div id="endScreen">
     <h1>🔥 La Z'aumunauté renaît de ses cendres !</h1>
-    <p>Le Grand Feu est allumé : autour des flammes, les 16 ont brûlé leurs bulles.</p>
+    <p>Le Grand Feu est allumé : autour des flammes, toute la bande a brûlé ses bulles.</p>
     <p>La bande est de nouveau UNE. Pour de bon.</p>
     <div class="credits" id="endCredits"></div>
     <button id="endScreenBtn">Continuer à se balader</button>
@@ -195,64 +195,63 @@
 </div>
 
 
-<script src="js/moteur/ecran.js?v=20.33"></script>
-<script src="js/donnees/personnages.js?v=20.33"></script>
-<script src="js/moteur/sprites.js?v=20.33"></script>
-<script src="js/donnees/dialogues-ambiance.js?v=20.33"></script>
-<script src="js/donnees/dialogues-affinites.js?v=20.33"></script>
-<script src="js/donnees/dialogues-communs.js?v=20.33"></script>
-<script src="js/donnees/dialogues-zones.js?v=20.33"></script>
-<script src="js/moteur/dialogues-outils.js?v=20.33"></script>
-<script src="js/moteur/sauvegarde.js?v=20.33"></script>
-<script src="js/moteur/monde.js?v=20.33"></script>
-<script src="js/donnees/zones.js?v=20.33"></script>
-<script src="js/moteur/pnj-et-decor-hub.js?v=20.33"></script>
-<script src="js/moteur/son.js?v=20.33"></script>
-<script src="js/moteur/effets.js?v=20.33"></script>
-<script src="js/moteur/tactile.js?v=20.33"></script>
-<script src="js/interface/a-faire.js?v=20.33"></script>
-<script src="js/moteur/entrees.js?v=20.33"></script>
-<script src="js/moteur/partie.js?v=20.33"></script>
-<script src="js/interface/dialogue.js?v=20.33"></script>
-<script src="js/interface/fiche-zone.js?v=20.33"></script>
-<script src="js/interface/cartes.js?v=20.33"></script>
-<script src="js/enquete/donnees.js?v=20.33"></script>
-<script src="js/enquete/journal.js?v=20.33"></script>
-<script src="js/moteur/interaction.js?v=20.33"></script>
-<script src="js/moteur/mise-a-jour.js?v=20.33"></script>
-<script src="js/rendu/camera.js?v=20.33"></script>
-<script src="js/rendu/art-pixel.js?v=20.33"></script>
-<script src="js/rendu/sol.js?v=20.33"></script>
-<script src="js/rendu/arbres.js?v=20.33"></script>
-<script src="js/rendu/emoji-pixel.js?v=20.33"></script>
-<script src="js/rendu/maisons.js?v=20.33"></script>
-<script src="js/rendu/place.js?v=20.33"></script>
-<script src="js/rendu/pancartes-papillons.js?v=20.33"></script>
-<script src="js/rendu/scene.js?v=20.33"></script>
-<script src="js/rendu/personnages.js?v=20.33"></script>
-<script src="js/minijeux/noyau.js?v=20.33"></script>
-<script src="js/minijeux/etoiles.js?v=20.33"></script>
-<script src="js/minijeux/outils.js?v=20.33"></script>
-<script src="js/minijeux/coco-course.js?v=20.33"></script>
-<script src="js/minijeux/camille-esquive.js?v=20.33"></script>
-<script src="js/minijeux/emma-enigmes.js?v=20.33"></script>
-<script src="js/minijeux/lilie-defile.js?v=20.33"></script>
-<script src="js/minijeux/tristan-moto.js?v=20.33"></script>
-<script src="js/minijeux/noah-avis.js?v=20.33"></script>
-<script src="js/minijeux/naomi-rythme.js?v=20.33"></script>
-<script src="js/minijeux/saint-pierre-charme.js?v=20.33"></script>
-<script src="js/minijeux/maeva-basket.js?v=20.33"></script>
-<script src="js/minijeux/mm-volley.js?v=20.33"></script>
-<script src="js/minijeux/magir-quiz.js?v=20.33"></script>
-<script src="js/minijeux/lawisse-collecte.js?v=20.33"></script>
-<script src="js/minijeux/callipyge-endurance.js?v=20.33"></script>
-<script src="js/minijeux/perline-blagues.js?v=20.33"></script>
-<script src="js/minijeux/elais-coiffure.js?v=20.33"></script>
-<script src="js/minijeux/horace-duel.js?v=20.33"></script>
-<script src="js/interface/menu-equipe.js?v=20.33"></script>
-<script src="js/interface/toast.js?v=20.33"></script>
-<script src="js/moteur/boucle.js?v=20.33"></script>
-<script src="js/moteur/verif-version.js?v=20.33"></script>
-<script src="js/moteur/demarrage.js?v=20.33"></script>
+<script src="js/moteur/ecran.js?v=20.34"></script>
+<script src="js/donnees/personnages.js?v=20.34"></script>
+<script src="js/moteur/sprites.js?v=20.34"></script>
+<script src="js/donnees/dialogues-ambiance.js?v=20.34"></script>
+<script src="js/donnees/dialogues-affinites.js?v=20.34"></script>
+<script src="js/donnees/dialogues-communs.js?v=20.34"></script>
+<script src="js/donnees/dialogues-zones.js?v=20.34"></script>
+<script src="js/moteur/dialogues-outils.js?v=20.34"></script>
+<script src="js/moteur/sauvegarde.js?v=20.34"></script>
+<script src="js/moteur/monde.js?v=20.34"></script>
+<script src="js/donnees/zones.js?v=20.34"></script>
+<script src="js/moteur/pnj-et-decor-hub.js?v=20.34"></script>
+<script src="js/moteur/son.js?v=20.34"></script>
+<script src="js/moteur/effets.js?v=20.34"></script>
+<script src="js/moteur/tactile.js?v=20.34"></script>
+<script src="js/interface/a-faire.js?v=20.34"></script>
+<script src="js/moteur/entrees.js?v=20.34"></script>
+<script src="js/moteur/partie.js?v=20.34"></script>
+<script src="js/interface/dialogue.js?v=20.34"></script>
+<script src="js/interface/fiche-zone.js?v=20.34"></script>
+<script src="js/interface/cartes.js?v=20.34"></script>
+<script src="js/enquete/donnees.js?v=20.34"></script>
+<script src="js/enquete/journal.js?v=20.34"></script>
+<script src="js/moteur/interaction.js?v=20.34"></script>
+<script src="js/moteur/mise-a-jour.js?v=20.34"></script>
+<script src="js/rendu/camera.js?v=20.34"></script>
+<script src="js/rendu/art-pixel.js?v=20.34"></script>
+<script src="js/rendu/sol.js?v=20.34"></script>
+<script src="js/rendu/arbres.js?v=20.34"></script>
+<script src="js/rendu/emoji-pixel.js?v=20.34"></script>
+<script src="js/rendu/maisons.js?v=20.34"></script>
+<script src="js/rendu/place.js?v=20.34"></script>
+<script src="js/rendu/pancartes-papillons.js?v=20.34"></script>
+<script src="js/rendu/scene.js?v=20.34"></script>
+<script src="js/rendu/personnages.js?v=20.34"></script>
+<script src="js/minijeux/noyau.js?v=20.34"></script>
+<script src="js/minijeux/etoiles.js?v=20.34"></script>
+<script src="js/minijeux/outils.js?v=20.34"></script>
+<script src="js/minijeux/coco-course.js?v=20.34"></script>
+<script src="js/minijeux/camille-esquive.js?v=20.34"></script>
+<script src="js/minijeux/emma-enigmes.js?v=20.34"></script>
+<script src="js/minijeux/lilie-defile.js?v=20.34"></script>
+<script src="js/minijeux/tristan-moto.js?v=20.34"></script>
+<script src="js/minijeux/noah-avis.js?v=20.34"></script>
+<script src="js/minijeux/naomi-rythme.js?v=20.34"></script>
+<script src="js/minijeux/saint-pierre-charme.js?v=20.34"></script>
+<script src="js/minijeux/maeva-basket.js?v=20.34"></script>
+<script src="js/minijeux/mm-volley.js?v=20.34"></script>
+<script src="js/minijeux/magir-quiz.js?v=20.34"></script>
+<script src="js/minijeux/lawisse-collecte.js?v=20.34"></script>
+<script src="js/minijeux/callipyge-endurance.js?v=20.34"></script>
+<script src="js/minijeux/perline-blagues.js?v=20.34"></script>
+<script src="js/minijeux/elais-coiffure.js?v=20.34"></script>
+<script src="js/interface/menu-equipe.js?v=20.34"></script>
+<script src="js/interface/toast.js?v=20.34"></script>
+<script src="js/moteur/boucle.js?v=20.34"></script>
+<script src="js/moteur/verif-version.js?v=20.34"></script>
+<script src="js/moteur/demarrage.js?v=20.34"></script>
 </body>
 </html>

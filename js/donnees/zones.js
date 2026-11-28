@@ -14,7 +14,11 @@ const zones = PERSONNAGES.map((p, i) => {
     x = HUB_X - 70; y = HUB_Y + HUB_RADIUS + 96;
     angle = Math.PI / 2;
   } else {
-    angle = ((i - 1) / 15) * Math.PI * 2 - Math.PI/2;
+    // Les amis se répartissent à égale distance sur tout le cercle, quel que soit leur nombre.
+    // Le sud est réservé à la maison de Coco : si le nombre d'amis est PAIR, il y aurait une
+    // maison pile au sud (sa route traverserait celle de Coco), donc on décale le cercle d'un demi-pas.
+    const nbAmis = PERSONNAGES.length - 1;
+    angle = ((i - 1) / nbAmis) * Math.PI * 2 - Math.PI/2 + (nbAmis % 2 === 0 ? Math.PI / nbAmis : 0);
     x = HUB_X + Math.cos(angle) * ZONE_RADIUS - 70;
     y = HUB_Y + Math.sin(angle) * ZONE_RADIUS - 60;
   }

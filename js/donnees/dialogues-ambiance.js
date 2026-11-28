@@ -17,8 +17,7 @@ const PRIVATE_JOKES = {
   noah: "« Noah, ton avis sur le match d'hier ? (on rigole déjà) »",
   naomi: "« Naomi, tu nous joues un truc ? »",
   sinclair: "« Saint-Pierre, toujours aussi classe. »",
-  maeva: "« Maeva, tu nous montres ton shoot légendaire ? »",
-  horace: "« Horace, tu nous fais une démo de katana ? »"
+  maeva: "« Maeva, tu nous montres ton shoot légendaire ? »"
 };
 
 // Discussions enrichies : plusieurs petits échanges à plusieurs répliques

@@ -1,6 +1,6 @@
 # 🐑 La Z'aumunauté dez Z'Agneaux
 
-Jeu en pixel art (HTML5 canvas) sur la bande : on se balade sur la place, on recrute les 16 persos en réussissant leur mini-jeu, on remplit le journal d'enquête (touche **J**) et on allume le Grand Feu.
+Jeu en pixel art (HTML5 canvas) sur la bande : on se balade sur la place, on recrute toute la bande en réussissant leur mini-jeu, on remplit le journal d'enquête (touche **J**) et on allume le Grand Feu.
 
 **Jouer :** ouvrir `index.html` (ou le lien GitHub Pages du dépôt). Marche sur ordinateur (clavier) et sur téléphone en paysage (commandes tactiles). La partie se sauvegarde toute seule dans le navigateur (`localStorage`) — voir « Limites de la sauvegarde » plus bas.
 
@@ -76,7 +76,7 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 #### Données (textes, persos, zones)
 | Fichier | Rôle |
 |---|---|
-| `js/donnees/personnages.js` | Liste des 16 persos (id, surnom, couleurs, traits). C'est ICI qu'on ajoute / change un perso. |
+| `js/donnees/personnages.js` | Liste des persos (id, surnom, couleurs, traits). C'est ICI qu'on ajoute / change un perso. |
 | `js/donnees/dialogues-ambiance.js` | Blagues privées et petites discussions d'ambiance entre persos (PRIVATE_JOKES, CASUAL_CHATS). |
 | `js/donnees/dialogues-affinites.js` | Dialogues d'affinité : ce que chaque perso dit selon QUI joue (AFFIN_DIAL). Gros fichier de texte. |
 | `js/donnees/dialogues-communs.js` | Répliques générales de chaque perso, quand il n'y a rien de spécial à dire (AFFIN_COMMON). |
@@ -154,7 +154,6 @@ Les fichiers sont chargés **dans cet ordre** (celui d'`index.html`). Ce sont de
 | `js/minijeux/callipyge-endurance.js` | Mini-jeu de Callipyge : course d'endurance, sauts par-dessus les cailloux (type 'endurance', étoiles bonus). |
 | `js/minijeux/perline-blagues.js` | Mini-jeu de Perline : les blagues (type 'blagues'). |
 | `js/minijeux/elais-coiffure.js` | Mini-jeu d'Elaïs : la coiffure (type 'coiffure'). |
-| `js/minijeux/horace-duel.js` | Mini-jeu d'Horace : duel au katana (type 'duel'). |
 
 ---
 

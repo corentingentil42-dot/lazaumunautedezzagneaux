@@ -151,14 +151,5 @@ const AFFIN_COMMON = {
     [[null, "« Aujourd'hui, une personne m'a dit que j'étais directe. Je lui ai dit merci. C'était pas un compliment, apparemment. »"]],
     [[null, "« Y'a un truc chiant à faire et personne veut le faire. Donc je vais le faire, mais en râlant. »"]],
     [[null, "« T'as vu mes tirs d'hier ? Non ? T'as raté quelque chose, là. »"]]
-  ],
-  horace: [
-    [[null, "« J'ai marché jusqu'au bout de la ville aujourd'hui. Pourquoi ? Y'avait pas de pourquoi. C'est ça le truc. »"]],
-    [[null, "« Y'a un mot japonais que j'adore. Je le retiens jamais, mais j'adore l'idée de l'aimer. »"]],
-    [[null, "« La discipline, c'est simple : tu décides, et tu fais. Le reste, c'est de la négociation avec soi-même. »"],
-     ['me', "« Tu négocies jamais, toi ? »"],
-     [null, "« Que sur les durées de marche. »"]],
-    [[null, "« Ce matin, j'ai vu le soleil se lever. Vous dormiez tous, c'était que pour moi. »"]],
-    [[null, "« Un jour je vous emmène tous en rando. Vous êtes pas prêts, mais ce jour viendra. »"]]
   ]
 };

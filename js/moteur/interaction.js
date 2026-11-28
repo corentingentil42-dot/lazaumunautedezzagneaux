@@ -51,7 +51,7 @@ function tryInteract() {
 }
 
 // ---- LA VRAIE FIN : le Grand Feu de la Z'aumunauté ----
-// Réunir les 16 n'est qu'un succès : la vraie fin, c'est d'allumer le Grand
+// Réunir toute la bande n'est qu'un succès : la vraie fin, c'est d'allumer le Grand
 // Feu, au sud de la fontaine. Il ne s'allume que si la bande est AU COMPLET.
 // (Les préparatifs de la fête sont prévus pour plus tard.)
 function campfireInteract() {

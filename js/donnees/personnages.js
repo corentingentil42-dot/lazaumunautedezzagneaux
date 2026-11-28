@@ -1,5 +1,5 @@
 /* ============================================================
-   js/donnees/personnages.js — Liste des 16 persos (id, surnom, couleurs, traits). C'est ICI qu'on ajoute / change un perso.
+   js/donnees/personnages.js — Liste des persos (id, surnom, couleurs, traits). C'est ICI qu'on ajoute / change un perso.
    (script classique : partage les variables globales des autres fichiers js/ ; l'ordre de chargement est dans index.html)
    ============================================================ */
 
@@ -54,8 +54,5 @@ const PERSONNAGES = [
     quete:{ nom:'La Soirée Mondaine', desc:'Remplis les jauges de 3 invités !', type:'charme' } },
   { id:'maeva', nom:'Maeva', surnom:'Maeva', zone:'Le Gymnase',
     theme:'basket', emoji:'🏀', couleur:'#e8722c',
-    quete:{ nom:'Le Concours de Tirs', desc:'10 paniers, 3 ballons, zéro filet !', type:'basket' } },
-  { id:'horace', nom:'Horace', surnom:'Horace', zone:'Le Dojo du Katana',
-    theme:'japon / katana', emoji:'⚔️', couleur:'#7a1f1f',
-    quete:{ nom:'Le Duel au Katana', desc:'Bats le maître en 20 touches !', type:'duel' } }
+    quete:{ nom:'Le Concours de Tirs', desc:'10 paniers, 3 ballons, zéro filet !', type:'basket' } }
 ];

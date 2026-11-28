@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* ============ INITIALISATION ============ */
-const GAME_VERSION = 'v20.33';
+const GAME_VERSION = 'v20.34';
 // Diagnostic (touche D) : teste en direct les fichiers de Coco pour voir
 // ce qui se charge et ce qui manque, et affiche d'où le jeu est ouvert.
 function runDiagnostics() {

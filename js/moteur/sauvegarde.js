@@ -37,7 +37,9 @@ function loadGame() {
   state.persosDebloques = d.persosDebloques.filter(id => ids.has(id));
   state.persoActif = (ids.has(d.persoActif) && state.persosDebloques.includes(d.persoActif)) ? d.persoActif : 'coco';
   state.feuAllume = !!d.feuAllume;
-  state.records = (d.records && typeof d.records === 'object') ? d.records : {};
+  state.records = {};
+  // On ne garde que les records des persos qui existent encore (un perso retiré du jeu ne doit pas laisser de trace dans une vieille sauvegarde).
+  if (d.records && typeof d.records === 'object') Object.keys(d.records).forEach(k => { if (ids.has(k)) state.records[k] = d.records[k]; });
   // v20.25 : avant, les étoiles dépendaient du nombre d'essais. Désormais elles mesurent la performance :
   // les anciens records repartent à 1★ (victoire) et se rattrapent en rejouant.
   if (d.v < 3) Object.keys(state.records).forEach(k => { const r = state.records[k]; if (r) r.stars = r.wins ? 1 : 0; });

@@ -9,10 +9,10 @@ let caseSolved = false;
 // La Révélation finale : quand les 4 recoupements sont versés, le pool des
 // suspects ne contient plus qu'un nom. Le dossier se referme dessus.
 const CASE_FINALE = [
-  "« Dossier : LE VENDREDI 13. Seize versions recueillies. Quatre recoupements décisifs. La bande au complet autour de la table. Il est temps de refermer l'affaire. »",
+  "« Dossier : LE VENDREDI 13. Quinze versions recueillies. Quatre recoupements décisifs. La bande au complet autour de la table. Il est temps de refermer l'affaire. »",
   "« Dès le début, une certitude : PERSONNE de la bande. À 22h12, quand le local a été trouvé vide, vous étiez TOUS devant la porte, à douze paires d'yeux les uns sur les autres. Le coupable n'était pas dans la fête : il était déjà rentré chez lui. »",
   "« 22h05. Lawisse cache la boîte au local, avec la clé empruntée. 22h09. Un adulte qui range ses affaires dans l'école trouve la boîte. Un bien non étiqueté, déposé dans un local à provisions. Il fait ce qu'il faut : il confisque. »",
-  "« 22h11. Horace le croise : lunettes, boîte sous le bras, sifflement tranquille. Direction : chez lui. 22h12 : le local est vide, le silence tombe sur la fête, et la bande accuse le seul qui avait déjà avoué un cookie dans sa vie : Coco. »",
+  "« 22h11. Un passant le croise : lunettes, boîte sous le bras, sifflement tranquille. Direction : chez lui. 22h12 : le local est vide, le silence tombe sur la fête, et la bande accuse le seul qui avait déjà avoué un cookie dans sa vie : Coco. »",
   "« 22h13. Naomi joue le morceau du moment exact. Derrière le mur du sud, pendant le grand silence musical, le voleur goûte sa confiscation : une bouchée, croquée, nette. Noah l'a enregistrée sans le savoir. »",
   "« Et l'élimination a fait son œuvre. Un adulte. Chauve. Avec des lunettes. Muni d'une clé de l'école. Et qui siffle en rentrant chez lui. Dix-huit suspects, dix-sept noms rayés du dossier. »",
   "« Le coupable, c'est le Prof de Maths. 📐 Le cookie, il l'a confisqué. Le règlement, il l'a appliqué. Et ensuite il l'a croqué derrière un mur, comme un gamin de 327 ans. »",
@@ -147,7 +147,7 @@ function caseJournalHtml() {
       h += '<div class="caseItem">🔍 <b>' + s.nom + '</b> (' + s.note + ') — toujours dans le coup : matche tous les indices.</div>';
     }
   }
-  h += '<h4>TÉMOIGNAGES DE LA BANDE (' + recruited.length + '/15)</h4>';
+  h += '<h4>TÉMOIGNAGES DE LA BANDE (' + recruited.length + '/' + (PERSONNAGES.length - 1) + ')</h4>';
   for (const p of PERSONNAGES) {
     if (p.id === 'coco') continue;
     if (state.persosDebloques.includes(p.id)) {

@@ -93,12 +93,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Ok. T'as peu de chances, mais je te laisse croire un peu. »"],
     [null, "« Elle est gentille, mais genre, à moitié. »"]
   ],
-  'coco|horace': [
-    [null, "« Horace ! Raconte-moi encore le truc du Japon, les distributeurs. »"],
-    ['horace', "« Je te l'ai raconté cinq fois. »"],
-    [null, "« Ouais mais raconte mieux cette fois. »"],
-    ['horace', "« Le distributeur chantait en rendant la monnaie. Voilà. J'y peux rien, c'est comme ça. »"]
-  ],
 
   // ======================= LAWISE / LOÏS (PNJ) =======================
   'lawisse|coco': [
@@ -180,13 +174,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Évidemment. Toi, tu fais quoi de tes journées ? »"],
     [null, "« Des trucs. »"],
     ['maeva', "« Ça a l'air passionnant, franchement. »"]
-  ],
-  'lawisse|horace': [
-    [null, "« Horace. »"],
-    ['horace', "« Lawisse. Ça va ? »"],
-    [null, "« Ça va. Restons comme ça, toi et moi. »"],
-    ['horace', "« Ouais. C'est très bien comme ça. »"],
-    [null, "« Tant que ça reste comme ça, tout va bien. »"]
   ],
 
   // ======================= M.M. (PNJ) =======================
@@ -272,12 +259,6 @@ const AFFIN_DIAL = {
     [null, "« Ouais. »"],
     ['maeva', "« Bon. »"]
   ],
-  'mm|horace': [
-    [null, "« Horace, le Japon c'est combien d'heures d'avion ? »"],
-    ['horace', "« Une douzaine, avec escale. »"],
-    [null, "« Une douzaine... et tu as fait ça volontairement ? »"],
-    ['horace', "« Ouais. Et je le referais. »"]
-  ],
 
   // ======================= CALLIPYGE / LÉONIE (PNJ) =======================
   'callipyge|coco': [
@@ -360,12 +341,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Course ou basket ? »"],
     [null, "« Les deux, comme ça on gagne une fois chacune. »"],
     ['maeva', "« Deal. »"]
-  ],
-  'callipyge|horace': [
-    [null, "« Horace, tu marches vraiment 30 bornes le dimanche ? »"],
-    ['horace', "« Quinze. Trente quand je me laisse porter. »"],
-    [null, "« Un dimanche je viens. Mais je préviens : je cours les premiers kilomètres. »"],
-    ['horace', "« C'est le genre de détails qui tuent la marche, mais bon, viens quand même. »"]
   ],
 
   // ======================= BERLINE / PERLINE (PNJ) =======================
@@ -453,12 +428,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Elle est nulle, mais tu le sais déjà, alors ça va. »"],
     [null, "« C'est ça, au moins c'est honnête. »"]
   ],
-  'berline|horace': [
-    [null, "« Horace, tu marches encore partout, toi ? »"],
-    ['horace', "« Partout où je peux. »"],
-    [null, "« Nous autres, on s'assoit, mais chacun sa vie. »"],
-    ['horace', "« Voilà. Et je respecte les gens assis. De loin. »"]
-  ],
 
   // ======================= ELAIS (PNJ) =======================
   'elais|coco': [
@@ -543,11 +512,6 @@ const AFFIN_DIAL = {
     [null, "« Maëva, tu as passé un bon week-end ? »"],
     ['maeva', "« Ouais, j'ai joué au basket, j'ai gagné. Bon week-end automatique. »"],
     [null, "« J'adore ta logique. »"]
-  ],
-  'elais|horace': [
-    [null, "« Horace, raconte encore le Japon, mais la version courte. »"],
-    ['horace', "« Version courte : c'était bien, j'ai marché, j'ai rien compris à la langue. »"],
-    [null, "« C'est la meilleure version. »"]
   ],
 
   // ======================= CAMILLE (PNJ) =======================
@@ -639,14 +603,6 @@ const AFFIN_DIAL = {
     [null, "« C'est déjà ça. »"],
     ['maeva', "« J'apporte les snacks. »"]
   ],
-  'camille|horace': [
-    ['horace', "« Salut Camille. »"],
-    [null, "« Salut Horace. »"],
-    ['horace', "« Il fait beau. »"],
-    [null, "« Ouais, il fait beau. »"],
-    ['horace', "« Bon. Voilà. »"],
-    [null, "« Voilà. »"]
-  ],
 
   // ======================= EMMA (PNJ) =======================
   'emma|coco': [
@@ -736,12 +692,6 @@ const AFFIN_DIAL = {
     [null, "« À un livre. On est très prévisibles, toutes les deux. »"],
     ['maeva', "« Ouais, mais au moins on est cohérentes. »"]
   ],
-  'emma|horace': [
-    [null, "« Horace, tu marches jusqu'où cette fois ? »"],
-    ['horace', "« Jusqu'à que ça me saoule. »"],
-    [null, "« Et ça t'arrive, que ça te saoule ? »"],
-    ['horace', "« Une fois. Mais c'était la faute du terrain. »"]
-  ],
 
   // ======================= LILIE (PNJ) =======================
   'lilie|coco': [
@@ -829,12 +779,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Non. »"],
     [null, "« Ok, bah voilà, au moins c'est clair. »"],
     ['maeva', "« C'était le but. »"]
-  ],
-  'lilie|horace': [
-    [null, "« Horace, pour la rando, je mets quoi ? »"],
-    ['horace', "« Des chaussures. »"],
-    [null, "« Ça va, merci, super conseil. »"],
-    ['horace', "« De rien. Elles sont où, tes chaussures de marche ? »"]
   ],
 
   // ======================= NOE / MAGIR (PNJ) =======================
@@ -928,12 +872,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Ça va. »"],
     [null, "« Ok. »"],
     ['maeva', "« Ok. »"]
-  ],
-  'noe|horace': [
-    [null, "« Horace, tu marches toujours autant ? »"],
-    ['horace', "« Ouais, et j'ai ajouté un tour le dimanche. »"],
-    [null, "« Ajouter un tour. Toi. Voilà. »"],
-    ['horace', "« On a tous nos trucs. »"]
   ],
 
   // ======================= TRISTAN / TITAN (PNJ) =======================
@@ -1030,12 +968,6 @@ const AFFIN_DIAL = {
     ['maeva', "« ...Ouais, ok. »"],
     [null, "« Yes. »"]
   ],
-  'tristan|horace': [
-    [null, "« Horace, tu viens vraiment à la prochaine ? »"],
-    ['horace', "« Ouais. Une soirée, ça se tente. »"],
-    [null, "« C'est ce que je dis ! Une soirée, ça se tente toujours. »"],
-    ['horace', "« Voilà. On est d'accord pour une fois. »"]
-  ],
 
   // ======================= NOAH (PNJ) =======================
   'noah|coco': [
@@ -1124,13 +1056,6 @@ const AFFIN_DIAL = {
     [null, "« Ouais... en fait je parlais de la soirée. »"],
     ['maeva', "« Ah. Bah tu parles, et je viens. »"],
     [null, "« Voilà. On a notre équilibre. »"]
-  ],
-  'noah|horace': [
-    [null, "« Horace, tu marches encore ou quoi ? »"],
-    ['horace', "« Je viens de rentrer. »"],
-    [null, "« T'as marché où ? »"],
-    ['horace', "« Partout. Enfin... tu connais pas les noms des rues. »"],
-    [null, "« C'est vrai. Bonne marche alors. »"]
   ],
 
   // ======================= NAOMI (PNJ) =======================
@@ -1223,12 +1148,6 @@ const AFFIN_DIAL = {
     [null, "« De rien. C'est instrumental. »"],
     ['maeva', "« Alors ouais. »"]
   ],
-  'naomi|horace': [
-    [null, "« Horace, tu as marché longtemps aujourd'hui ? »"],
-    ['horace', "« Deux heures. C'est une journée tranquille. »"],
-    [null, "« Deux heures. Ok. Moi, c'est deux minutes jusqu'au studio. »"],
-    ['horace', "« On a des échelles différentes, c'est tout. »"]
-  ],
 
   // ======================= SINCLAIR / SAINT-PIERRE (PNJ) =======================
   'sinclair|coco': [
@@ -1319,13 +1238,6 @@ const AFFIN_DIAL = {
     ['maeva', "« Peut-être. »"],
     [null, "« C'est une réponse correcte. »"],
     ['maeva', "« C'est ma réponse standard. »"]
-  ],
-  'sinclair|horace': [
-    [null, "« Horace, on a des points communs, nous deux. »"],
-    ['horace', "« Genre ? »"],
-    [null, "« La conversation à distance. »"],
-    ['horace', "« Ouais. On la maîtrise bien, tous les deux. »"],
-    [null, "« On devrait en faire un sport. »"]
   ],
 
   // ======================= MAEVA (PNJ) =======================
@@ -1420,110 +1332,5 @@ const AFFIN_DIAL = {
     ['sinclair', "« Parce que ça marche. »"],
     [null, "« C'est une bonne réponse, en fait. »"],
     ['sinclair', "« Je sais. »"]
-  ],
-  'maeva|horace': [
-    [null, "« Horace, tu marches encore ou tu t'arrêtes jamais ? »"],
-    ['horace', "« Je m'arrête pour dormir. Parfois. »"],
-    [null, "« Ok, voilà un sport. »"],
-    ['horace', "« Le moins cher de tous. »"]
-  ],
-
-  // ======================= HORACE (PNJ) =======================
-  'horace|coco': [
-    [null, "« Coco, tu veux la blague japonaise du jour ? »"],
-    ['coco', "« Elle est nulle ? »"],
-    [null, "« Évidemment. »"],
-    ['coco', "« Alors ouais, vas-y. »"],
-    [null, "« ...Je l'ai oubliée. Je la raconterai mieux demain. »"],
-    ['coco', "« C'est toujours mieux demain, chez toi. »"]
-  ],
-  'horace|lawisse': [
-    [null, "« Lawisse. »"],
-    ['lawisse', "« Horace. »"],
-    [null, "« Ça va ? »"],
-    ['lawisse', "« Ça va. Restons à cette distance, s'il te plaît. »"],
-    [null, "« C'est très bien comme distance. »"],
-    ['lawisse', "« On est d'accord pour une fois. »"]
-  ],
-  'horace|mm': [
-    [null, "« M.M., t'as fait quoi hier ? »"],
-    ['mm', "« Un truc avec des gens. C'était bien. Enfin je crois. »"],
-    [null, "« C'est bien, d'y croire. »"],
-    ['mm', "« Merci. »"]
-  ],
-  'horace|callipyge': [
-    [null, "« Léonie, t'es partie courir ce matin ? »"],
-    ['callipyge', "« À 6h. »"],
-    [null, "« Moi je marchais déjà. On s'est peut-être croisés. »"],
-    ['callipyge', "« T'as vu une flèche passer ? C'était moi. »"]
-  ],
-  'horace|berline': [
-    [null, "« Perline, une devinette : qu'est-ce qui marche et rate toutes ses blagues ? »"],
-    ['berline', "« Toi ? »"],
-    [null, "« ...Oui. C'était la bonne réponse. »"],
-    ['berline', "« Trop facile, je te connais. »"]
-  ],
-  'horace|elais': [
-    [null, "« Elaïs, le groupe va bien ? »"],
-    ['elais', "« Le groupe va bien. Tu marchais pour vérifier ? »"],
-    [null, "« Je marche pour tout. Vérifier, réfléchir, avancer. »"],
-    ['elais', "« Continue, c'est bon pour nous tous. »"]
-  ],
-  'horace|camille': [
-    [null, "« Camille. »"],
-    ['camille', "« Horace. »"],
-    [null, "« Il fait pas froid aujourd'hui. »"],
-    ['camille', "« Non, il fait pas froid. »"],
-    [null, "« Ok. »"],
-    ['camille', "« Ok. »"]
-  ],
-  'horace|emma': [
-    [null, "« Emma, tu lis dehors parfois ? »"],
-    ['emma', "« Quand il fait beau. Comme aujourd'hui. »"],
-    [null, "« Alors c'est bon pour les deux. »"],
-    ['emma', "« On est d'accord sur un point, c'est noté. »"]
-  ],
-  'horace|lilie': [
-    [null, "« Lily, la rando, t'y penses toujours ? »"],
-    ['lilie', "« Ouais, mais je réfléchis encore à la tenue. »"],
-    [null, "« Tu réfléchis plus longtemps que la rando elle-même. »"],
-    ['lilie', "« C'est une rando de style, alors. »"]
-  ],
-  'horace|noe': [
-    [null, "« Magir, tu dis rien ? »"],
-    ['noe', "« ...Non. »"],
-    [null, "« C'est reposant, toi. »"],
-    ['noe', "« Je prends ça comme un compliment. »"],
-    [null, "« C'en est un. »"]
-  ],
-  'horace|tristan': [
-    [null, "« Tristan, tu dors jamais, toi ? »"],
-    ['tristan', "« Je dors quand y'a plus rien à faire. »"],
-    [null, "« Ça doit être court. »"],
-    ['tristan', "« Très court. Mais très bon. »"]
-  ],
-  'horace|noah': [
-    [null, "« Noah, tu connais les sentiers par ici ? »"],
-    ['noah', "« Non. Je connais les enceintes et le Real. »"],
-    [null, "« Ok. C'est une carte mentale aussi. »"],
-    ['noah', "« Voilà, on a tous nos cartes. »"]
-  ],
-  'horace|naomi': [
-    [null, "« Naomi, tu joues dehors parfois ? »"],
-    ['naomi', "« Non, dedans. Y'a moins de monde pour écouter. »"],
-    [null, "« C'est bien aussi. »"],
-    ['naomi', "« Voilà. »"]
-  ],
-  'horace|sinclair': [
-    [null, "« Saint-Pierre, on se connaît bien, nous deux. »"],
-    ['sinclair', "« Assez bien, oui. »"],
-    [null, "« Assez pour savoir de quoi on parle sans en parler. »"],
-    ['sinclair', "« C'est notre spécialité. »"]
-  ],
-  'horace|maeva': [
-    [null, "« Maëva, tu marches jamais, toi ? »"],
-    ['maeva', "« Je marche au basket. Ça compte pas ? »"],
-    [null, "« Ça compte à moitié. »"],
-    ['maeva', "« Alors je fais deux matchs. Ça fait un. »"]
   ]
 };

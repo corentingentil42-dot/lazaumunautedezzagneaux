@@ -42,7 +42,7 @@ const COURSE_RIVALS = [
   { id: 'tristan',   skill: 0.88, aggr: 0.40, steer: 185, aware: 0.92, stumble: 0.60 },
   { id: 'maeva',     skill: 0.86, aggr: 0.10, steer: 165, aware: 0.94, stumble: 0.45 },
   { id: 'callipyge', skill: 0.84, aggr: 0.00, steer: 150, aware: 0.95, stumble: 0.40 },
-  { id: 'horace',    skill: 0.82, aggr: 0.50, steer: 175, aware: 0.88, stumble: 0.65 },
+  { id: 'noah',      skill: 0.82, aggr: 0.50, steer: 175, aware: 0.88, stumble: 0.65 },
   { id: 'camille',   skill: 0.80, aggr: 0.15, steer: 145, aware: 0.86, stumble: 0.60 }
 ];
 const courseHash = (n) => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };

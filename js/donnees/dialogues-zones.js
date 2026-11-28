@@ -86,10 +86,5 @@ const AFFIN_ZONE = {
     [[null, "« Dix paniers, trois ballons, zéro filet. Le filet, c'est pour les entraînements. »"]],
     [[null, "« Le gymnase sent le basket. Enfin, l'effort. Enfin, tu vois ce que je veux dire. »"]],
     [[null, "« Ici, j'ai jamais perdu. Enfin, presque jamais. Presque jamais. »"]]
-  ],
-  horace: [
-    [[null, "« Le maître dort. Enfin, il attend. C'est pareil chez lui, paraît-il. »"]],
-    [[null, "« Vingt touches. La moitié de ma préparation militaire, en plus rapide. »"]],
-    [[null, "« Respecte le dojo, et le dojo te respecte. C'est simple, mais faut le faire. »"]]
   ]
 };

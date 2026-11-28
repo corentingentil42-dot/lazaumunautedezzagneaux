@@ -8,8 +8,8 @@
    Il y a six mois, le soir de la Grande Surprise, le Cookie Sacré a
    disparu à 22h13, et la bande s'est dispersée. Chaque pote recruté
    verse son témoignage au dossier ; trois témoins extérieurs (le Prof
-   de Maths, la CPE, le Concierge) rôdent sur la place. À 16/16, la
-   Révélation referme l'affaire. Journal consultable avec J.
+   de Maths, la CPE, le Concierge) rôdent sur la place. Une fois la bande
+   au complet, la Révélation referme l'affaire. Journal consultable avec J.
    (Ton : mystérieux et sérieux pendant l'enquête, fin drôle.)
    ===================================================================== */
 const CASE_INTRO = "Il y a six mois, un Vendredi 13, la Z'aumunauté préparait sa Grande Surprise. Au cœur du dispositif : le Cookie Sacré, cuisiné par Perline, caché par Lawisse. À 22h13, la boîte a disparu. Le lendemain, plus personne ne se parlait. Et pendant que la bande s'accusait en silence, personne n'a pensé à regarder DEHORS. Ce dossier recense TOUS les suspects extérieurs : les adultes de l'école, les familles, les gens du quartier. Le vrai coupable est quelque part dans cette liste.";
@@ -215,17 +215,6 @@ const CASE_TEMOIGNAGES = {
       "« Mon témoignage : le match, la victoire, le sourire expliqué. Enquête avec ça. »",
       "📎 Pièce n°14 versée au dossier : le score du match, authentifié. SUSPECT BLANCHI : le concierge."
     ]
-  },
-  horace: {
-    court: "22h11 : un adulte aux lunettes, boîte sous le bras, sifflement tranquille. Il raconte tout... mais refuse de signer.",
-    piece: "Le carnet de marche, entrée 22h11",
-    lines: [
-      "« Ce soir-là, je marchais. Le Vendredi 13, la ville se vide plus vite que d'habitude. »",
-      "« 22h11. J'ai croisé quelqu'un. Un adulte, des lunettes, la boîte sous le bras. Il ne se cachait pas. C'est ça qui m'a dérangé. »",
-      "« Il sifflait. Un sifflement tranquille, de quelqu'un qui rentre chez lui après une bonne journée. À 22h11. Avec une boîte. »",
-      "« Je raconte tout, mais je signe rien : c'est la marche qui témoigne, pas moi. Les indices, recoupez-les vous-mêmes. Retiens juste les lunettes. Et le reste. »",
-      "📎 Pièce n°15 versée au dossier : le carnet de marche. « 22h11. Adulte. Lunettes. Boîte. Sifflement. Direction : chez lui. »"
-    ]
   }
 };
 // Recoupements de l'équipe d'enquête : une fois la bande au complet,
@@ -249,7 +238,7 @@ const CASE_RECROISES = {
     blanchit: ['cpe'],
     lines: [
       "« On m'a dit : M.M., recoupe. J'ai recoupé. Enfin, j'ai réfléchi. Enfin, j'ai dessiné. »",
-      "« Camille a vu une ombre longer le mur du sud, très droit, angle parfait. Horace a croisé un adulte avec des lunettes. Moi, j'avais dessiné le cookie avec des lunettes. Je pensais que c'était un style. C'était un signe. »",
+      "« Camille a vu une ombre longer le mur du sud, très droit, angle parfait. Moi, j'avais dessiné le cookie avec des lunettes. Je pensais que c'était un style. C'était un signe. »",
       "« Et l'angle parfait : quand la lune a brillé, ce sont les VERRES qui ont réfléchi. Des lunettes. Verrouille ça. »",
       "« La CPE, par contre : son enquête s'est arrêtée à la cafétéria, un malaise, une chaise défaillante. Elle cherchait du mauvais côté. Elle est innocente, la pauvre. Elle grignotait juste. 📋 »",
       "📎 Recoupement versé au dossier. INDICE VERROUILLÉ : le coupable porte des lunettes. SUSPECT BLANCHI : la CPE."
@@ -273,7 +262,7 @@ const CASE_RECROISES = {
       "« ... »",
       "« J'ai comparé les silences. Le silence de la bouchée. Et le silence d'après, quand tout le monde cherchait. »",
       "« Le silence de la bouchée était... paisible. Un gamin qui croque en cachette, ça fait un silence nerveux. Ça, c'était un adulte tranquille. »",
-      "« Horace a dit : il siffle en rentrant. Les gamins, ça siffle pas en rentrant chez eux. Les adultes, si. Verrouille : un siffleur. ... Voilà. J'ai dit des choses. »",
+      "« Dans le silence d'après, quelqu'un sifflait au loin, tranquille, comme on siffle en rentrant chez soi. Les gamins, ça siffle pas en rentrant chez eux. Les adultes, si. Verrouille : un siffleur. ... Voilà. J'ai dit des choses. »",
       "📎 Recoupement versé au dossier. INDICE VERROUILLÉ : le coupable siffle en rentrant chez lui."
     ]
   }

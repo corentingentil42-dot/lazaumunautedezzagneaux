@@ -10,8 +10,7 @@ const AVIS_ROUNDS = [
   { sujet: "Ton avis sur les blagues de Perline ?", avis: ["Elles sont nulles", "Nulles, mais d'une nullité raffinée"], honte: "Du grand art : je pleure à chaque fois (de rire, pas de désespoir)" },
   { sujet: "Ton avis sur l'argent de Lawisse ?", avis: ["Il gère plutôt bien", "Il claque tout trop vite"], honte: "Le banquier le plus généreux du groupe, il prête à tout le monde" },
   { sujet: "Ton avis sur le volley de M.M. ?", avis: ["Il est costaud", "Il progresse bien"], honte: "Il joue mieux avec les pieds, candidat au Ballon d'Or" },
-  { sujet: "Ton avis sur la frange d'Elaïs ?", avis: ["Très jolie", "Elle a du potentiel"], honte: "Un événement scientifique qui mérite sa thèse à lui tout seul" },
-  { sujet: "Ton avis sur le katana d'Horace ?", avis: ["Une belle arme", "Un peu cliché, le truc du Japon"], honte: "Il peut couper le continuum espace-temps, c'est prouvé scientifiquement" }
+  { sujet: "Ton avis sur la frange d'Elaïs ?", avis: ["Très jolie", "Elle a du potentiel"], honte: "Un événement scientifique qui mérite sa thèse à lui tout seul" }
 ];
 const AVIS_CHRONO = 5; // secondes par avis
 
